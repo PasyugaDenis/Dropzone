@@ -4,8 +4,6 @@ namespace DropZone.Database.Models
 {
     public class AAD : Entity
     {
-        public string Manufacturer { get; set; }
-
         public string Name { get; set; }
 
         public double Height { get; set; }
@@ -15,9 +13,13 @@ namespace DropZone.Database.Models
         public DateTime? MaintenanceDate { get; set; }
 
 
+        public long ManufacturerId { get; set; }
+
         public long HashBlockId { get; set; }
 
         
+        public virtual Manufacturer Manufacturer { get; set; }
+
         public virtual HashBlock HashBlock { get; set; }
 
         public virtual ParachuteSystem ParachuteSystem { get; set; }

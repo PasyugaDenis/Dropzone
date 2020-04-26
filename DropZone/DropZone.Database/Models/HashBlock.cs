@@ -15,7 +15,7 @@ namespace DropZone.Database.Models
 
         public long UserId { get; set; }
 
-        public long? PreviousHashId { get; set; }
+        public long? PreviousHashBlockId { get; set; }
 
 
         public virtual User User { get; set; }

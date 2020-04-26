@@ -52,12 +52,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DropZoneContext.cs" />
-    <Compile Include="Migrations\202003041100068_InitDBMigration.cs" />
-    <Compile Include="Migrations\202003041100068_InitDBMigration.designer.cs">
-      <DependentUpon>202003041100068_InitDBMigration.cs</DependentUpon>
+    <Compile Include="Migrations\202003081556141_InitDbMigration.cs" />
+    <Compile Include="Migrations\202003081556141_InitDbMigration.designer.cs">
+      <DependentUpon>202003081556141_InitDbMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004261205220_ChangeManufacturerMigration.cs" />
+    <Compile Include="Migrations\202004261205220_ChangeManufacturerMigration.designer.cs">
+      <DependentUpon>202004261205220_ChangeManufacturerMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AAD.cs" />
+    <Compile Include="Models\AADType.cs" />
     <Compile Include="Models\Aircraft.cs" />
     <Compile Include="Models\DropZone.cs" />
     <Compile Include="Models\Entity.cs" />
@@ -65,6 +70,7 @@
     <Compile Include="Models\IEntity.cs" />
     <Compile Include="Models\Jump.cs" />
     <Compile Include="Models\JumpBook.cs" />
+    <Compile Include="Models\Manufacturer.cs" />
     <Compile Include="Models\Parachute.cs" />
     <Compile Include="Models\ParachuteSystem.cs" />
     <Compile Include="Models\Role.cs" />
@@ -80,8 +86,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202003041100068_InitDBMigration.resx">
-      <DependentUpon>202003041100068_InitDBMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202003081556141_InitDbMigration.resx">
+      <DependentUpon>202003081556141_InitDbMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004261205220_ChangeManufacturerMigration.resx">
+      <DependentUpon>202004261205220_ChangeManufacturerMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

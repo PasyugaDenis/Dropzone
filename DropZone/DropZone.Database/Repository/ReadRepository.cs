@@ -1,8 +1,8 @@
 ﻿using DropZone.Database.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DropZone.Database.Repository
@@ -11,42 +11,77 @@ namespace DropZone.Database.Repository
     {
         public async Task<bool> AllAsync<TEntity>(Predicate<TEntity> match) where TEntity : class, IEntity
         {
-            throw new NotImplementedException();
+            var result = await _context.Set<TEntity>().AsNoTracking()
+                .AllAsync(i => match(i));
+
+            return result;
         }
 
         public async Task<bool> AnyAsync<TEntity>(Predicate<TEntity> match) where TEntity : class, IEntity
         {
-            throw new NotImplementedException();
+            var result = await _context.Set<TEntity>().AsNoTracking()
+                .AnyAsync(i => match(i));
+
+            return result;
         }
 
         public async Task<bool> AnyAsync<TEntity>() where TEntity : class, IEntity
         {
-            throw new NotImplementedException();
+            var result = await _context.Set<TEntity>().AsNoTracking()
+                .AnyAsync();
+
+            return result;
         }
 
-        public async Task<List<TEntity>> GetAllAsync<TEntity>() where TEntity : class, IEntity
+        public async Task<int> CountAsync<TEntity>(Predicate<TEntity> match) where TEntity : class, IEntity
         {
-            throw new NotImplementedException();
+            var result = await _context.Set<TEntity>().AsNoTracking()
+                .CountAsync(i => match(i));
+
+            return result;
+        }
+
+        public async Task<int> CountAsync<TEntity>() where TEntity : class, IEntity
+        {
+            var result = await _context.Set<TEntity>().AsNoTracking()
+                .CountAsync();
+
+            return result;
         }
 
         public async Task<TEntity> GetAsync<TEntity>(long id) where TEntity : class, IEntity
         {
-            throw new NotImplementedException();
-        }
+            var result = await _context.Set<TEntity>().AsNoTracking()
+                .Where(m => m.Id == id)
+                .SingleAsync();
 
-        public async Task<List<TEntity>> GetAsync<TEntity>(Predicate<TEntity> match) where TEntity : class, IEntity
-        {
-            throw new NotImplementedException();
+            return result;
         }
 
         public async Task<TEntity> GetOrDefaultAsync<TEntity>(long id) where TEntity : class, IEntity
         {
-            throw new NotImplementedException();
+            var result = await _context.Set<TEntity>().AsNoTracking()
+                .Where(m => m.Id == id)
+                .SingleOrDefaultAsync();
+
+            return result;
         }
 
-        public async Task<TEntity> GetOrDefaultAsync<TEntity>(long id, TEntity defaultValue) where TEntity : class, IEntity
+        public async Task<IEnumerable<TEntity>> GetAsync<TEntity>(Predicate<TEntity> match) where TEntity : class, IEntity
         {
-            throw new NotImplementedException();
+            var result = await _context.Set<TEntity>().AsNoTracking()
+                .Where(i => match(i))
+                .ToListAsync();
+
+            return result;
+        }
+
+        public async Task<IEnumerable<TEntity>> GetAsync<TEntity>() where TEntity : class, IEntity
+        {
+            var result = await _context.Set<TEntity>().AsNoTracking()
+                .ToListAsync();
+
+            return result;
         }
     }
 }

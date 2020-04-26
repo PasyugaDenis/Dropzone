@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitDBMigration : DbMigration
+    public partial class InitDbMigration : DbMigration
     {
         public override void Up()
         {
@@ -11,7 +11,7 @@
                 "dbo.AADs",
                 c => new
                     {
-                        Id = c.Long(nullable: false),
+                        Id = c.Long(nullable: false, identity: true),
                         Manufacturer = c.String(),
                         Name = c.String(),
                         Height = c.Double(nullable: false),
@@ -21,7 +21,7 @@
                         ModifiedAt = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.HashBlocks", t => t.HashBlockId, cascadeDelete: true)
+                .ForeignKey("dbo.HashBlocks", t => t.HashBlockId, cascadeDelete: false)
                 .ForeignKey("dbo.ParachuteSystems", t => t.Id)
                 .Index(t => t.Id)
                 .Index(t => t.HashBlockId);
@@ -36,15 +36,14 @@
                         PreviousHash = c.String(),
                         CreatedOn = c.DateTime(nullable: false),
                         UserId = c.Long(nullable: false),
-                        PreviousHashId = c.Long(),
+                        PreviousHashBlockId = c.Long(),
                         ModifiedAt = c.DateTime(nullable: false),
-                        PreviousHashBlock_Id = c.Long(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.HashBlocks", t => t.PreviousHashBlock_Id)
-                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.HashBlocks", t => t.PreviousHashBlockId)
+                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: false)
                 .Index(t => t.UserId)
-                .Index(t => t.PreviousHashBlock_Id);
+                .Index(t => t.PreviousHashBlockId);
             
             CreateTable(
                 "dbo.Users",
@@ -62,7 +61,7 @@
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.DropZones", t => t.DropZoneId)
-                .ForeignKey("dbo.Roles", t => t.RoleId, cascadeDelete: true)
+                .ForeignKey("dbo.Roles", t => t.RoleId, cascadeDelete: false)
                 .Index(t => t.RoleId)
                 .Index(t => t.DropZoneId);
             
@@ -79,7 +78,7 @@
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.Aircraft",
+                "dbo.Aircrafts",
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
@@ -90,7 +89,7 @@
                         ModifiedAt = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.DropZones", t => t.DropZoneId, cascadeDelete: true)
+                .ForeignKey("dbo.DropZones", t => t.DropZoneId, cascadeDelete: false)
                 .Index(t => t.DropZoneId);
             
             CreateTable(
@@ -113,15 +112,18 @@
                         AADId = c.Long(nullable: false),
                         SatchelId = c.Long(nullable: false),
                         UserId = c.Long(nullable: false),
+                        HashBlockId = c.Long(nullable: false),
                         ModifiedAt = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.HashBlocks", t => t.HashBlockId, cascadeDelete: false)
                 .ForeignKey("dbo.Parachutes", t => t.MainParachuteId, cascadeDelete: false)
                 .ForeignKey("dbo.Parachutes", t => t.ReserveParachuteId, cascadeDelete: false)
-                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: false)
                 .Index(t => t.MainParachuteId)
                 .Index(t => t.ReserveParachuteId)
-                .Index(t => t.UserId);
+                .Index(t => t.UserId)
+                .Index(t => t.HashBlockId);
             
             CreateTable(
                 "dbo.Parachutes",
@@ -136,9 +138,12 @@
                         IsReserve = c.Boolean(nullable: false),
                         LayingDate = c.DateTime(),
                         MaintenanceDate = c.DateTime(),
+                        HashBlockId = c.Long(nullable: false),
                         ModifiedAt = c.DateTime(nullable: false),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.HashBlocks", t => t.HashBlockId, cascadeDelete: false)
+                .Index(t => t.HashBlockId);
             
             CreateTable(
                 "dbo.Satchels",
@@ -149,11 +154,14 @@
                         ReserveParachuteArea = c.Double(nullable: false),
                         Manufacturer = c.String(),
                         MaintenanceDate = c.DateTime(),
+                        HashBlockId = c.Long(nullable: false),
                         ModifiedAt = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.HashBlocks", t => t.HashBlockId, cascadeDelete: false)
                 .ForeignKey("dbo.ParachuteSystems", t => t.Id)
-                .Index(t => t.Id);
+                .Index(t => t.Id)
+                .Index(t => t.HashBlockId);
             
             CreateTable(
                 "dbo.JumpBooks",
@@ -165,7 +173,7 @@
                         ModifiedAt = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Users", t => t.SportsmanId, cascadeDelete: true)
+                .ForeignKey("dbo.Users", t => t.SportsmanId, cascadeDelete: false)
                 .Index(t => t.SportsmanId);
             
             CreateTable(
@@ -173,11 +181,10 @@
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        Height = c.Long(nullable: false),
                         Date = c.DateTime(nullable: false),
                         Task = c.String(),
+                        Height = c.Double(nullable: false),
                         FallTime = c.Double(nullable: false),
-                        TotalTime = c.Double(nullable: false),
                         JumpBookId = c.Long(nullable: false),
                         DropZoneId = c.Long(nullable: false),
                         ParachuteSystemId = c.Long(nullable: false),
@@ -185,7 +192,7 @@
                         ModifiedAt = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Aircraft", t => t.AircraftId, cascadeDelete: false)
+                .ForeignKey("dbo.Aircrafts", t => t.AircraftId, cascadeDelete: false)
                 .ForeignKey("dbo.DropZones", t => t.DropZoneId, cascadeDelete: false)
                 .ForeignKey("dbo.JumpBooks", t => t.JumpBookId, cascadeDelete: false)
                 .ForeignKey("dbo.ParachuteSystems", t => t.ParachuteSystemId, cascadeDelete: false)
@@ -202,31 +209,37 @@
             DropForeignKey("dbo.Jumps", "ParachuteSystemId", "dbo.ParachuteSystems");
             DropForeignKey("dbo.Jumps", "JumpBookId", "dbo.JumpBooks");
             DropForeignKey("dbo.Jumps", "DropZoneId", "dbo.DropZones");
-            DropForeignKey("dbo.Jumps", "AircraftId", "dbo.Aircraft");
+            DropForeignKey("dbo.Jumps", "AircraftId", "dbo.Aircrafts");
             DropForeignKey("dbo.ParachuteSystems", "UserId", "dbo.Users");
             DropForeignKey("dbo.Satchels", "Id", "dbo.ParachuteSystems");
+            DropForeignKey("dbo.Satchels", "HashBlockId", "dbo.HashBlocks");
             DropForeignKey("dbo.ParachuteSystems", "ReserveParachuteId", "dbo.Parachutes");
             DropForeignKey("dbo.ParachuteSystems", "MainParachuteId", "dbo.Parachutes");
+            DropForeignKey("dbo.Parachutes", "HashBlockId", "dbo.HashBlocks");
+            DropForeignKey("dbo.ParachuteSystems", "HashBlockId", "dbo.HashBlocks");
             DropForeignKey("dbo.AADs", "Id", "dbo.ParachuteSystems");
             DropForeignKey("dbo.AADs", "HashBlockId", "dbo.HashBlocks");
             DropForeignKey("dbo.HashBlocks", "UserId", "dbo.Users");
             DropForeignKey("dbo.Users", "RoleId", "dbo.Roles");
             DropForeignKey("dbo.Users", "DropZoneId", "dbo.DropZones");
-            DropForeignKey("dbo.Aircraft", "DropZoneId", "dbo.DropZones");
-            DropForeignKey("dbo.HashBlocks", "PreviousHashBlock_Id", "dbo.HashBlocks");
+            DropForeignKey("dbo.Aircrafts", "DropZoneId", "dbo.DropZones");
+            DropForeignKey("dbo.HashBlocks", "PreviousHashBlockId", "dbo.HashBlocks");
             DropIndex("dbo.Jumps", new[] { "AircraftId" });
             DropIndex("dbo.Jumps", new[] { "ParachuteSystemId" });
             DropIndex("dbo.Jumps", new[] { "DropZoneId" });
             DropIndex("dbo.Jumps", new[] { "JumpBookId" });
             DropIndex("dbo.JumpBooks", new[] { "SportsmanId" });
+            DropIndex("dbo.Satchels", new[] { "HashBlockId" });
             DropIndex("dbo.Satchels", new[] { "Id" });
+            DropIndex("dbo.Parachutes", new[] { "HashBlockId" });
+            DropIndex("dbo.ParachuteSystems", new[] { "HashBlockId" });
             DropIndex("dbo.ParachuteSystems", new[] { "UserId" });
             DropIndex("dbo.ParachuteSystems", new[] { "ReserveParachuteId" });
             DropIndex("dbo.ParachuteSystems", new[] { "MainParachuteId" });
-            DropIndex("dbo.Aircraft", new[] { "DropZoneId" });
+            DropIndex("dbo.Aircrafts", new[] { "DropZoneId" });
             DropIndex("dbo.Users", new[] { "DropZoneId" });
             DropIndex("dbo.Users", new[] { "RoleId" });
-            DropIndex("dbo.HashBlocks", new[] { "PreviousHashBlock_Id" });
+            DropIndex("dbo.HashBlocks", new[] { "PreviousHashBlockId" });
             DropIndex("dbo.HashBlocks", new[] { "UserId" });
             DropIndex("dbo.AADs", new[] { "HashBlockId" });
             DropIndex("dbo.AADs", new[] { "Id" });
@@ -236,7 +249,7 @@
             DropTable("dbo.Parachutes");
             DropTable("dbo.ParachuteSystems");
             DropTable("dbo.Roles");
-            DropTable("dbo.Aircraft");
+            DropTable("dbo.Aircrafts");
             DropTable("dbo.DropZones");
             DropTable("dbo.Users");
             DropTable("dbo.HashBlocks");

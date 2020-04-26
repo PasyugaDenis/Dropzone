@@ -8,10 +8,17 @@ namespace DropZone.Database.Models
 
         public double ReserveParachuteArea { get; set; }
 
-        public string Manufacturer { get; set; }
-
         public DateTime? MaintenanceDate { get; set; }
 
+
+        public long Manufacturerid { get; set; }
+
+        public long HashBlockId { get; set; }
+
+        
+        public virtual Manufacturer Manufacturer { get; set; }
+
+        public virtual HashBlock HashBlock { get; set; }
 
         public virtual ParachuteSystem ParachuteSystem { get; set; }
     }

@@ -1,6 +1,7 @@
 ﻿using DropZone.Database.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Threading.Tasks;
 
 namespace DropZone.Database.Repository
@@ -14,31 +15,35 @@ namespace DropZone.Database.Repository
 
         Task<bool> AnyAsync<TEntity>() where TEntity : class, IEntity;
 
+        Task<int> CountAsync<TEntity>(Predicate<TEntity> match) where TEntity : class, IEntity;
+
+        Task<int> CountAsync<TEntity>() where TEntity : class, IEntity;
+
         Task<TEntity> GetAsync<TEntity>(long id) where TEntity : class, IEntity;
 
         Task<TEntity> GetOrDefaultAsync<TEntity>(long id) where TEntity : class, IEntity;
 
-        Task<TEntity> GetOrDefaultAsync<TEntity>(long id, TEntity defaultValue) where TEntity : class, IEntity;
+        Task<IEnumerable<TEntity>> GetAsync<TEntity>(Predicate<TEntity> match) where TEntity : class, IEntity;
 
-        Task<List<TEntity>> GetAsync<TEntity>(Predicate<TEntity> match) where TEntity : class, IEntity;
+        Task<IEnumerable<TEntity>> GetAsync<TEntity>() where TEntity : class, IEntity;
 
-        Task<List<TEntity>> GetAllAsync<TEntity>() where TEntity : class, IEntity;
+        DbContextTransaction BeginTransaction();
 
         //Write
         Task<TEntity> AddAsync<TEntity>(TEntity item) where TEntity : class, IEntity;
 
         Task<TEntity> UpdateAsync<TEntity>(TEntity item) where TEntity : class, IEntity;
 
-        Task<TEntity> DeleteAsync<TEntity>(TEntity item) where TEntity : class, IEntity;
+        Task<TEntity> RemoveAsync<TEntity>(TEntity item) where TEntity : class, IEntity;
 
-        Task<TEntity> DeleteAsync<TEntity>(long id) where TEntity : class, IEntity;
+        Task<TEntity> RemoveAsync<TEntity>(long id) where TEntity : class, IEntity;
 
-        Task<List<TEntity>> AddRangeAsync<TEntity>(List<TEntity> items) where TEntity : class, IEntity;
+        Task<IEnumerable<TEntity>> AddRangeAsync<TEntity>(IEnumerable<TEntity> items) where TEntity : class, IEntity;
 
-        Task<List<TEntity>> UpdateRangeAsync<TEntity>(List<TEntity> items) where TEntity : class, IEntity;
+        Task<IEnumerable<TEntity>> UpdateRangeAsync<TEntity>(IEnumerable<TEntity> items) where TEntity : class, IEntity;
 
-        Task<List<TEntity>> DeleteRangeAsync<TEntity>(List<TEntity> items) where TEntity : class, IEntity;
+        Task<IEnumerable<TEntity>> RemoveRangeAsync<TEntity>(IEnumerable<TEntity> items) where TEntity : class, IEntity;
 
-        Task<List<TEntity>> DeleteRangeAsync<TEntity>(List<long> ids) where TEntity : class, IEntity;
+        Task<IEnumerable<TEntity>> RemoveRangeAsync<TEntity>(IEnumerable<long> ids) where TEntity : class, IEntity;
     }
 }

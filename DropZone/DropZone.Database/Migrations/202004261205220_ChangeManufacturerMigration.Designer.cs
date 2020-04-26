@@ -7,13 +7,13 @@ namespace DropZone.Database.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.0")]
-    public sealed partial class InitDBMigration : IMigrationMetadata
+    public sealed partial class ChangeManufacturerMigration : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitDBMigration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ChangeManufacturerMigration));
         
         string IMigrationMetadata.Id
         {
-            get { return "202003041100068_InitDBMigration"; }
+            get { return "202004261205220_ChangeManufacturerMigration"; }
         }
         
         string IMigrationMetadata.Source

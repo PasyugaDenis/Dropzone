@@ -4,15 +4,13 @@ namespace DropZone.Database.Models
 {
     public class Jump : Entity
     {
-        public long Height { get; set; }
-
         public DateTime Date { get; set; }
 
         public string Task { get; set; }
 
-        public double FallTime { get; set; }
+        public double Height { get; set; }
 
-        public double TotalTime { get; set; }
+        public double FallTime { get; set; }
 
 
         public long JumpBookId { get; set; }
