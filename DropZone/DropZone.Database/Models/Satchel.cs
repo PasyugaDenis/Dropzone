@@ -15,7 +15,7 @@ namespace DropZone.Database.Models
 
         public long HashBlockId { get; set; }
 
-        
+
         public virtual Manufacturer Manufacturer { get; set; }
 
         public virtual HashBlock HashBlock { get; set; }

@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DropZone.Database", "DropZone.Database\DropZone.Database.csproj", "{1889890C-E576-4E78-98E3-E3E291FCCF52}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DropZone.Core", "DropZone.Core\DropZone.Core.csproj", "{942EC493-603F-4E8C-8B74-305F61FE4633}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{1889890C-E576-4E78-98E3-E3E291FCCF52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1889890C-E576-4E78-98E3-E3E291FCCF52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1889890C-E576-4E78-98E3-E3E291FCCF52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{942EC493-603F-4E8C-8B74-305F61FE4633}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{942EC493-603F-4E8C-8B74-305F61FE4633}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{942EC493-603F-4E8C-8B74-305F61FE4633}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{942EC493-603F-4E8C-8B74-305F61FE4633}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

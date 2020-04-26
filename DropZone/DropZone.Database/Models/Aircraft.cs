@@ -11,7 +11,7 @@
 
         public long DropZoneId { get; set; }
 
-        
+
         public virtual DropZone DropZone { get; set; }
     }
 }
