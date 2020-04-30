@@ -67,6 +67,42 @@ namespace DropZone.Database.Repository
             return result;
         }
 
+        public async Task<TEntity> SingleAsync<TEntity>(Predicate<TEntity> match) where TEntity : class, IEntity
+        {
+            var result = await _context.Set<TEntity>().AsNoTracking()
+                .Where(m => match(m))
+                .SingleAsync();
+
+            return result;
+        }
+
+        public async Task<TEntity> SingleOrDefaultAsync<TEntity>(Predicate<TEntity> match) where TEntity : class, IEntity
+        {
+            var result = await _context.Set<TEntity>().AsNoTracking()
+                .Where(m => match(m))
+                .SingleOrDefaultAsync();
+
+            return result;
+        }
+
+        public async Task<TEntity> FirstAsync<TEntity>(Predicate<TEntity> match) where TEntity : class, IEntity
+        {
+            var result = await _context.Set<TEntity>().AsNoTracking()
+                .Where(m => match(m))
+                .FirstAsync();
+
+            return result;
+        }
+
+        public async Task<TEntity> FirstOrDefaultAsync<TEntity>(Predicate<TEntity> match) where TEntity : class, IEntity
+        {
+            var result = await _context.Set<TEntity>().AsNoTracking()
+                .Where(m => match(m))
+                .FirstOrDefaultAsync();
+
+            return result;
+        }
+
         public async Task<IEnumerable<TEntity>> GetAsync<TEntity>(Predicate<TEntity> match) where TEntity : class, IEntity
         {
             var result = await _context.Set<TEntity>().AsNoTracking()

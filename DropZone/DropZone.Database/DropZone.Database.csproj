@@ -60,6 +60,10 @@
     <Compile Include="Migrations\202004261205220_ChangeManufacturerMigration.designer.cs">
       <DependentUpon>202004261205220_ChangeManufacturerMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004271323296_ChangeUserMigration.cs" />
+    <Compile Include="Migrations\202004271323296_ChangeUserMigration.designer.cs">
+      <DependentUpon>202004271323296_ChangeUserMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AAD.cs" />
     <Compile Include="Models\AADType.cs" />
@@ -92,6 +96,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004261205220_ChangeManufacturerMigration.resx">
       <DependentUpon>202004261205220_ChangeManufacturerMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004271323296_ChangeUserMigration.resx">
+      <DependentUpon>202004271323296_ChangeUserMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

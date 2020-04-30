@@ -23,6 +23,14 @@ namespace DropZone.Database.Repository
 
         Task<TEntity> GetOrDefaultAsync<TEntity>(long id) where TEntity : class, IEntity;
 
+        Task<TEntity> SingleAsync<TEntity>(Predicate<TEntity> match) where TEntity : class, IEntity;
+
+        Task<TEntity> SingleOrDefaultAsync<TEntity>(Predicate<TEntity> match) where TEntity : class, IEntity;
+
+        Task<TEntity> FirstAsync<TEntity>(Predicate<TEntity> match) where TEntity : class, IEntity;
+
+        Task<TEntity> FirstOrDefaultAsync<TEntity>(Predicate<TEntity> match) where TEntity : class, IEntity;
+
         Task<IEnumerable<TEntity>> GetAsync<TEntity>(Predicate<TEntity> match) where TEntity : class, IEntity;
 
         Task<IEnumerable<TEntity>> GetAsync<TEntity>() where TEntity : class, IEntity;
