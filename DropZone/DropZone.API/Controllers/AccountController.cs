@@ -1,11 +1,11 @@
 ﻿using DropZone.Core.Managers.AuthorizationManager;
 using DropZone.Core.Models;
-using DropZone.Web.Infrastructure;
+using DropZone.API.Infrastructure;
 using System;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace DropZone.Web.Controllers
+namespace DropZone.API.Controllers
 {
     [RoutePrefix("")]
     public class AccountController : BaseApiController

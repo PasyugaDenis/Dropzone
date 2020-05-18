@@ -11,8 +11,7 @@ namespace DropZone.Core.Services.AuthorizationService
     {
         private readonly OAuthAuthorizationServerOptions _authOptions;
 
-        public AuthorizationService(
-            OAuthAuthorizationServerOptions authOptions)
+        public AuthorizationService(OAuthAuthorizationServerOptions authOptions)
         {
             _authOptions = authOptions;
         }

@@ -1,4 +1,5 @@
 ﻿using DropZone.Database.Models;
+using System;
 using System.Data.Entity;
 
 namespace DropZone.Database
@@ -28,13 +29,15 @@ namespace DropZone.Database
 
         public DbSet<User> Users { get; set; }
 
-        public DropZoneContext() : base("DbConnection")
+        public DropZoneContext() : base("DropZoneContext")
         {
-
+            Database.CommandTimeout = 1000;
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Properties<DateTime>().Configure(c => c.HasColumnType("datetime2"));
+
             modelBuilder.Entity<ParachuteSystem>()
                 .HasRequired(ps => ps.AAD)
                 .WithRequiredPrincipal(aad => aad.ParachuteSystem)

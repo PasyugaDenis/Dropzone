@@ -2,20 +2,25 @@
 using DropZone.Core.Models.User;
 using DropZone.Core.Services.AuthorizationService;
 using DropZone.Core.Services.UserService;
-using System;
+using DropZone.Database.Repository;
 using System.Threading.Tasks;
 
 namespace DropZone.Core.Managers.AuthorizationManager
 {
     public class AuthorizationManager : IAuthorizationManager
     {
+        private readonly IRepository _repository;
+
         private readonly IAuthorizationService _authorizationService;
         private readonly IUserService _userService;
 
         public AuthorizationManager(
+            IRepository repository,
             IAuthorizationService authorizationService,
             IUserService userService)
         {
+            _repository = repository;
+
             _authorizationService = authorizationService;
             _userService = userService;
         }
@@ -35,6 +40,7 @@ namespace DropZone.Core.Managers.AuthorizationManager
                     var token = _authorizationService.GetUserToken(user);
 
                     result.UserId = user.Id;
+                    result.RoleId = user.RoleId;
                     result.Token = token;
                     result.IsSuccess = true;
                 }
@@ -68,6 +74,7 @@ namespace DropZone.Core.Managers.AuthorizationManager
                 var token = _authorizationService.GetUserToken(newUser);
 
                 result.UserId = newUser.Id;
+                result.RoleId = newUser.RoleId;
                 result.Token = token;
                 result.IsSuccess = true;
             }

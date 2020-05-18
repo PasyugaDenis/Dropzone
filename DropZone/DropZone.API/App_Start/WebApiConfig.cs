@@ -1,7 +1,7 @@
 ﻿using System.Net.Http.Headers;
 using System.Web.Http;
 
-namespace DropZone.Web
+namespace DropZone.API
 {
     public static class WebApiConfig
     {

@@ -1,7 +1,7 @@
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(DropZone.Web.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(DropZone.Web.App_Start.NinjectWebCommon), "Stop")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(DropZone.API.App_Start.NinjectWebCommon), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(DropZone.API.App_Start.NinjectWebCommon), "Stop")]
 
-namespace DropZone.Web.App_Start
+namespace DropZone.API.App_Start
 {
     using DropZone.Core.Managers.AuthorizationManager;
     using DropZone.Core.Services.AuthorizationService;
@@ -10,13 +10,9 @@ namespace DropZone.Web.App_Start
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
     using Ninject.Web.Common;
-    using Ninject.Web.WebApi;
-    using Ninject.Web.WebApi.Filter;
+    using Ninject.Web.Common.WebHost;
     using System;
-    using System.Linq;
     using System.Web;
-    using System.Web.Http;
-    using System.Web.Http.Validation;
 
     public static class NinjectWebCommon
     {
@@ -51,12 +47,6 @@ namespace DropZone.Web.App_Start
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
-                //kernel.Bind<DefaultModelValidatorProviders>()
-                //    .ToConstant(new DefaultModelValidatorProviders(
-                //        GlobalConfiguration.Configuration.Services.GetServices(typeof(ModelValidatorProvider))
-                //        .Cast<ModelValidatorProvider>()));
-
-                //GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(kernel);
 
                 RegisterServices(kernel);
                 return kernel;

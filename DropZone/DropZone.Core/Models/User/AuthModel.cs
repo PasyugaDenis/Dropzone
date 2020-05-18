@@ -4,6 +4,8 @@
     {
         public long? UserId { get; set; }
 
+        public long? RoleId { get; set; }
+
         public string Token { get; set; }
 
         public string ErrorMessage { get; set; }

@@ -5,7 +5,7 @@ using Ninject.Web.WebApi;
 using System.Web;
 using System.Web.Http;
 
-namespace DropZone.Web
+namespace DropZone.API
 {
     public class WebApiApplication : HttpApplication
     {

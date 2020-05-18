@@ -10,5 +10,15 @@ namespace DropZone.Core.Services.UserService
         Task<UserModel> GetUserByEmailAsync(string email);
 
         Task<bool> IsUserExistAsync(string email);
+
+        Task<RoleModel> GetSuperAdminRoleAsync();
+
+        Task<RoleModel> GetAdminRoleAsync();
+
+        Task<RoleModel> GetManagerRoleAsync();
+
+        Task<RoleModel> GetLayerRoleAsync();
+
+        Task<RoleModel> GetSportsmanRoleAsync();
     }
 }

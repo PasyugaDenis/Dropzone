@@ -64,6 +64,14 @@
     <Compile Include="Migrations\202004271323296_ChangeUserMigration.designer.cs">
       <DependentUpon>202004271323296_ChangeUserMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004301350226_ChangeDateTime2Migration.cs" />
+    <Compile Include="Migrations\202004301350226_ChangeDateTime2Migration.designer.cs">
+      <DependentUpon>202004301350226_ChangeDateTime2Migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005091514295_ChangeParachuteMigration.cs" />
+    <Compile Include="Migrations\202005091514295_ChangeParachuteMigration.designer.cs">
+      <DependentUpon>202005091514295_ChangeParachuteMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AAD.cs" />
     <Compile Include="Models\AADType.cs" />
@@ -99,6 +107,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004271323296_ChangeUserMigration.resx">
       <DependentUpon>202004271323296_ChangeUserMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004301350226_ChangeDateTime2Migration.resx">
+      <DependentUpon>202004301350226_ChangeDateTime2Migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005091514295_ChangeParachuteMigration.resx">
+      <DependentUpon>202005091514295_ChangeParachuteMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

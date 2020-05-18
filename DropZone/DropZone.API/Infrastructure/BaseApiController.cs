@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Web.Http;
 
-namespace DropZone.Web.Infrastructure
+namespace DropZone.API.Infrastructure
 {
     public class BaseApiController : ApiController
     {

@@ -4,11 +4,27 @@ namespace DropZone.Database.Models
 {
     public class Parachute : Entity
     {
+        public string Shape { get; set; }
+
+        public string Material { get; set; }
+
+        public string SliderType { get; set; }
+
         public double Area { get; set; }
 
         public double LayingVolume { get; set; }
 
         public double Weight { get; set; }
+
+        public double Height { get; set; }
+
+        public double Scope { get; set; }
+
+        public double Chord { get; set; }
+
+        public double Incline { get; set; }
+
+        public double ControlLineLength { get; set; }
 
         public int LayingCount { get; set; }
 

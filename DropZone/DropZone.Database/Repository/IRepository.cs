@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace DropZone.Database.Repository
@@ -9,13 +10,13 @@ namespace DropZone.Database.Repository
     public interface IRepository
     {
         //Read
-        Task<bool> AllAsync<TEntity>(Predicate<TEntity> match) where TEntity : class, IEntity;
+        Task<bool> AllAsync<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class, IEntity;
 
-        Task<bool> AnyAsync<TEntity>(Predicate<TEntity> match) where TEntity : class, IEntity;
+        Task<bool> AnyAsync<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class, IEntity;
 
         Task<bool> AnyAsync<TEntity>() where TEntity : class, IEntity;
 
-        Task<int> CountAsync<TEntity>(Predicate<TEntity> match) where TEntity : class, IEntity;
+        Task<int> CountAsync<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class, IEntity;
 
         Task<int> CountAsync<TEntity>() where TEntity : class, IEntity;
 
@@ -23,15 +24,15 @@ namespace DropZone.Database.Repository
 
         Task<TEntity> GetOrDefaultAsync<TEntity>(long id) where TEntity : class, IEntity;
 
-        Task<TEntity> SingleAsync<TEntity>(Predicate<TEntity> match) where TEntity : class, IEntity;
+        Task<TEntity> SingleAsync<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class, IEntity;
 
-        Task<TEntity> SingleOrDefaultAsync<TEntity>(Predicate<TEntity> match) where TEntity : class, IEntity;
+        Task<TEntity> SingleOrDefaultAsync<TEntity>(Expression<Func<TEntity, bool>> match) where TEntity : class, IEntity;
 
-        Task<TEntity> FirstAsync<TEntity>(Predicate<TEntity> match) where TEntity : class, IEntity;
+        Task<TEntity> FirstAsync<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class, IEntity;
 
-        Task<TEntity> FirstOrDefaultAsync<TEntity>(Predicate<TEntity> match) where TEntity : class, IEntity;
+        Task<TEntity> FirstOrDefaultAsync<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class, IEntity;
 
-        Task<IEnumerable<TEntity>> GetAsync<TEntity>(Predicate<TEntity> match) where TEntity : class, IEntity;
+        Task<IEnumerable<TEntity>> GetAsync<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class, IEntity;
 
         Task<IEnumerable<TEntity>> GetAsync<TEntity>() where TEntity : class, IEntity;
 
