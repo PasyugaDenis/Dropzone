@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DropZone.Database.Models
 {
@@ -17,6 +18,8 @@ namespace DropZone.Database.Models
         public double Latitude { get; set; }
 
         public double Longitude { get; set; }
+
+        public DateTime RegistrationDate { get; set; } 
 
 
         public virtual ICollection<Aircraft> Aircrafts { get; set; }

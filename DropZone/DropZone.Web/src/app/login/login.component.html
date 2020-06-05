@@ -90,7 +90,7 @@
                 <div class="form-group">
                     <button [disabled]="nuEmail.invalid || nuPassword.invalid || nuConfirmPassword.invalid 
                         || nuName.invalid || nuSurname.invalid || nuPhone.invalid"
-                        class="btn btn-primary btn-outline-success col-md-6" (click)="registration()">Sign Up</button>
+                        class="btn btn-primary btn-outline-success col-md-6" (click)="signUp()">Sign Up</button>
                         
                     <button class="btn btn-default btn-outline-success col-md-6" (click)="isRegistration = false">Sign In</button>
                 </div>
@@ -123,7 +123,7 @@
     
                 <div class="form-group">
                     <button [disabled]="email.invalid || password.invalid" 
-                        class="btn btn-primary btn-outline-success col-md-6" (click)="sigIn()">Sign In</button>
+                        class="btn btn-primary btn-outline-success col-md-6" (click)="signIn()">Sign In</button>
 
                     <button class="btn btn-default btn-outline-success col-md-6" (click)="isRegistration = true">Sign Up</button>
                 </div>

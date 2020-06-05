@@ -4,6 +4,7 @@
 namespace DropZone.API.App_Start
 {
     using DropZone.Core.Managers.AuthorizationManager;
+    using DropZone.Core.Managers.UserManager;
     using DropZone.Core.Services.AuthorizationService;
     using DropZone.Core.Services.UserService;
     using DropZone.Database.Repository;
@@ -74,6 +75,7 @@ namespace DropZone.API.App_Start
 
             //managers
             kernel.Bind<IAuthorizationManager>().To<AuthorizationManager>();
+            kernel.Bind<IUserManager>().To<UserManager>();
         }
     }
 }

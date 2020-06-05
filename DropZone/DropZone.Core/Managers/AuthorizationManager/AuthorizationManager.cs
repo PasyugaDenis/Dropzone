@@ -9,18 +9,13 @@ namespace DropZone.Core.Managers.AuthorizationManager
 {
     public class AuthorizationManager : IAuthorizationManager
     {
-        private readonly IRepository _repository;
-
         private readonly IAuthorizationService _authorizationService;
         private readonly IUserService _userService;
 
         public AuthorizationManager(
-            IRepository repository,
             IAuthorizationService authorizationService,
             IUserService userService)
         {
-            _repository = repository;
-
             _authorizationService = authorizationService;
             _userService = userService;
         }
@@ -29,7 +24,7 @@ namespace DropZone.Core.Managers.AuthorizationManager
         {
             var result = new AuthModel();
 
-            var user = await _userService.GetUserByEmailAsync(email);
+            var user = await _userService.GetUserAsync(email);
 
             if (user != null)
             {

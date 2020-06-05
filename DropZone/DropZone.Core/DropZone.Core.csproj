@@ -68,8 +68,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoMappingProfile.cs" />
+    <Compile Include="Managers\AircraftManager\AircraftManager.cs" />
+    <Compile Include="Managers\AircraftManager\IAircraftManager.cs" />
     <Compile Include="Managers\AuthorizationManager\AuthorizationManager.cs" />
     <Compile Include="Managers\AuthorizationManager\IAuthorizationManager.cs" />
+    <Compile Include="Managers\DropZoneManager\DropZoneManager.cs" />
+    <Compile Include="Managers\DropZoneManager\IDropZoneManager.cs" />
+    <Compile Include="Managers\UserManager\IUserManager.cs" />
+    <Compile Include="Managers\UserManager\UserManager.cs" />
     <Compile Include="Models\AAD\AADModel.cs" />
     <Compile Include="Models\AADType\AADTypeModel.cs" />
     <Compile Include="Models\Aircraft\AircraftModel.cs" />
@@ -85,15 +91,17 @@
     <Compile Include="Models\User\AuthModel.cs" />
     <Compile Include="Models\User\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AircraftService\AircraftService.cs" />
+    <Compile Include="Services\AircraftService\IAircraftService.cs" />
     <Compile Include="Services\AuthorizationService\AuthorizationService.cs" />
     <Compile Include="Services\AuthorizationService\Interfaces\IAuthorizationService.cs" />
     <Compile Include="Services\AuthorizationService\PasswordHasher.cs" />
+    <Compile Include="Services\DropZoneService\DropZoneService.cs" />
+    <Compile Include="Services\DropZoneService\IDropZoneService.cs" />
     <Compile Include="Services\UserService\Interfaces\IUserService.cs" />
     <Compile Include="Services\UserService\UserService.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Constants\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />

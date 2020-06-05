@@ -72,6 +72,14 @@
     <Compile Include="Migrations\202005091514295_ChangeParachuteMigration.designer.cs">
       <DependentUpon>202005091514295_ChangeParachuteMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005211656053_ChangeAADMigration.cs" />
+    <Compile Include="Migrations\202005211656053_ChangeAADMigration.designer.cs">
+      <DependentUpon>202005211656053_ChangeAADMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005212007053_AddDropZonRegistrationDateMigration.cs" />
+    <Compile Include="Migrations\202005212007053_AddDropZonRegistrationDateMigration.designer.cs">
+      <DependentUpon>202005212007053_AddDropZonRegistrationDateMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AAD.cs" />
     <Compile Include="Models\AADType.cs" />
@@ -113,6 +121,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005091514295_ChangeParachuteMigration.resx">
       <DependentUpon>202005091514295_ChangeParachuteMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005211656053_ChangeAADMigration.resx">
+      <DependentUpon>202005211656053_ChangeAADMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005212007053_AddDropZonRegistrationDateMigration.resx">
+      <DependentUpon>202005212007053_AddDropZonRegistrationDateMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

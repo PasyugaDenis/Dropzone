@@ -6,7 +6,7 @@ export class HttpService{
     basePath: string;
 
     constructor(private http: HttpClient) { 
-        this.basePath = 'http://localhost:8010/api/';
+        this.basePath = 'http://localhost:54896/';
     };
       
     postData(path: string, model: any) {      
@@ -22,11 +22,14 @@ export class HttpService{
     };
 
     private setHeaders(): HttpHeaders {
-        var token = localStorage.getItem('token');     
         var headers = new HttpHeaders();
+        var token = sessionStorage.getItem('token');
+
+        if (token) {
+            headers.append('Authorization ', 'Bearer ' + token);
+        }
 
         headers.append('Content-Type', 'application/json');
-        headers.append('authentication', token);
 
         return headers;
     };

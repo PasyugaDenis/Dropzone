@@ -10,6 +10,7 @@ export class DropZoneModel {
 	public square: number;
 	public latitude: number;
 	public longitude: number;
+	public registrationDate: Date;
 	public modifiedAt: Date;
 	
 	public aircrafts: AircraftModel[];

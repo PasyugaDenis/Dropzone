@@ -9,5 +9,5 @@ export class AircraftModel {
 	
 	public dropZoneId: number;
 	
-	public dropZone: DropZoneModel[];
+	public dropZone: DropZoneModel;
 };

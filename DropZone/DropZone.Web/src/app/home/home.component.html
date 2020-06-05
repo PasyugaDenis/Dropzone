@@ -1,0 +1,601 @@
+<div class="row" ng-init="init()">
+    <div class="col-ld-2 col-md-2 col-xs-12 col-sm-12" style="padding-left:5px;">
+        <div class="col-ld-12 col-md-12 col-xs-12 col-sm-12" style="cursor:pointer">
+            <a class="navbar-brand" (click)="goToProfile()">Profile</a>
+        </div>
+        
+        <div class="col-ld-12 col-md-12 col-xs-12 col-sm-12" style="cursor:pointer">
+            <a class="navbar-brand" (click)="goToDropZones()">Drop zones</a>
+        </div>
+                
+        <div class="col-ld-12 col-md-12 col-xs-12 col-sm-12" style="cursor:pointer">
+            <a class="navbar-brand" (click)="goToAircrafts()">Aircrafts</a>
+        </div>
+
+        <div class="col-ld-12 col-md-12 col-xs-12 col-sm-12" style="cursor:pointer">
+            <a class="navbar-brand" (click)="goToUsers()">Users</a>
+        </div>
+
+        <div class="col-ld-12 col-md-12 col-xs-12 col-sm-12" style="cursor:pointer">
+            <a class="navbar-brand" (click)="logout()">Logout</a>
+        </div>
+    </div>
+
+    <div class="col-ld-10 col-md-10 col-xs-12 col-sm-12">
+        <div class="container" *ngIf='selectedTab == "Profile"'>
+            <div class="col-ld-12 col-md-12 col-xs-12 col-sm-12">
+                <div class="center-block">
+                    <h1>Profile</h1>
+                </div>
+
+                <div class="form-horizontal row" style="margin-bottom: 10px">
+                    <p class="text-left"><b>{{user.role.value}}</b></p>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Email</label>
+    
+                    <input class="form-control" [(ngModel)]="user.email" 
+                        placeholder="Email" name="uEmail" #uEmail="ngModel" required/>
+                        
+                    <div [hidden]="uEmail.valid || uEmail.untouched" class="alert alert-danger">
+                        Email is required
+                    </div>
+                </div>
+    
+                <div class="form-group">
+                    <label class="control-label">Name</label>
+    
+                    <input class="form-control" [(ngModel)]="user.name" 
+                        placeholder="Name" name="uName" #uName="ngModel" required/>
+                    
+                    <div [hidden]="uName.valid || uName.untouched" class="alert alert-danger">
+                        Name is required
+                    </div>
+                </div>
+    
+                <div class="form-group">
+                    <label class="control-label">Surname</label>
+    
+                    <input class="form-control" [(ngModel)]="user.surname" 
+                        placeholder="Surname" name="uSurname" #uSurname="ngModel" required/>
+                    
+                    <div [hidden]="uSurname.valid || uSurname.untouched" class="alert alert-danger">
+                        Surname is required
+                    </div>
+                </div>
+    
+                <div class="form-group">
+                    <label class="control-label">Phone</label>
+    
+                    <input class="form-control" [(ngModel)]="user.phone" 
+                        placeholder="Phone" name="uPhone" #uPhone="ngModel" pattern="^[0-9]{10}$" >  
+                    
+                    <div [hidden]="uPhone.valid || uPhone.untouched" class="alert alert-danger">
+                        Phone is not valid
+                    </div>
+                </div>
+    
+                <div class="form-group">
+                    <label class="control-label">Address</label>
+    
+                    <input class="form-control" [(ngModel)]="user.address" placeholder="Address"/>
+                </div>
+                
+                <div class="form-group">
+                    <label class="control-label">Birthday</label>
+    
+                    <input type="date" class="form-control" [(ngModel)]="user.birthday"/>
+                </div>
+    
+                <div class="form-group">
+                    <button [disabled]="uEmail.invalid || uName.invalid || uSurname.invalid || uPhone.invalid"
+                        class="btn btn-primary btn-outline-success col-md-6" (click)="editProfile()">Edit</button>
+                </div>
+            </div>
+
+            <div class="col-ld-12 col-md-12 col-xs-12 col-sm-12">
+                <div class="center-block">
+                    <h1>Change password</h1>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Password</label>
+    
+                    <input type="password" class="form-control" [(ngModel)]="user.password" 
+                        placeholder="Password" name="uPassword" #uPassword="ngModel" required/>
+
+                    <div [hidden]="uPassword.valid || uPassword.untouched" class="alert alert-danger">
+                        Password is required
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Confirm password</label>
+    
+                    <input type="password" class="form-control" [(ngModel)]="confirmPassword" 
+                        placeholder="Confirm password" name="uConfirmPassword" #uConfirmPassword="ngModel" required/>
+                    
+                    <div [hidden]="uConfirmPassword.valid || uConfirmPassword.untouched" class="alert alert-danger">
+                        Confirm password is required
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button [disabled]="uPassword.invalid || uConfirmPassword.invalid"
+                        class="btn btn-primary btn-outline-success col-md-6" 
+                        (click)="changePassword()">Change password</button>
+                </div>
+            </div>
+
+            <div class="col-ld-12 col-md-12 col-xs-12 col-sm-12">
+                <div class="center-block">
+                    <h1>Jump book</h1>
+                </div>
+
+                <div class="form-horizontal row" style="margin-bottom: 10px">
+                    <p class="text-left"><b>Category: </b>{{jumpBook.Category}}</p>
+                </div>
+                
+                <div class="form-horizontal row" style="margin-bottom: 10px">
+                    <p class="text-left"><b>Jumps count: </b>{{jumpBook.jumps.length}}</p>
+                </div>
+
+                <div class="form-horizontal row" style="margin-bottom: 10px">
+                    <p class="text-left"><b>Total fall time: </b>{{jumpBook.jumps[jumpBook.jumps.length - 1].totalFallTime}}</p>
+                </div>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Task</th>
+                            <th>Height</th>
+                            <th>Fall time</th>
+                            <th>Total fall time</th>
+                            <th>Aircraft</th>
+                            <th>Dropzone</th>
+                            <th>Parachute</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let jump of jumpBook.jumps; let i = index">
+                            <td>{{i}}</td>
+                            <td>{{jump.height}}</td>
+                            <td>{{jump.fallTime}}</td>
+                            <td>{{jump.totalFallTime}}</td>
+                            <td>{{jump.aircraftType}}</td>
+                            <td>{{jump.dropzoneTitle}}</td>
+                            <td>{{jump.parachuteSystemTitle}}</td>
+                            <td>{{jump.date | date: 'dd.MM.yyyy'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>    
+
+        <div class="container" *ngIf='selectedTab == "DropZones"'>
+            <div class="center-block">
+                <h1>Drop Zones</h1>
+            </div>
+
+            <div *ngIf='user.dropZoneId != null' class="form-group">
+                <button class="btn btn-primary btn-outline-success col-md-6" 
+                    (click)="getDropZone(user.dropZoneId)">Show your dropzone</button>
+            </div>
+
+            <div *ngIf='user.role.value == "SuperAdmin"' class="form-group">
+                <button class="btn btn-primary btn-outline-success col-md-6" 
+                    (click)="setNewDropZone()">New..</button>
+            </div>
+
+            <div *ngIf="dropZone != null" class="col-ld-12 col-md-12 col-xs-12 col-sm-12">
+                <div *ngIf="claims.writeDropZone; then editDropZone else showDropZone"></div>
+                
+                <ng-template #editDropZone>    
+                    <div class="form-group">
+                        <label class="control-label">Title</label>
+        
+                        <input class="form-control" [(ngModel)]="dropZone.title" 
+                            placeholder="Title" name="dTitle" #dTitle="ngModel" required/>
+                            
+                        <div [hidden]="dTitle.valid || dTitle.untouched" class="alert alert-danger">
+                            Title is required
+                        </div>
+                    </div>
+        
+                    <div class="form-group">
+                        <label class="control-label">Country</label>
+        
+                        <input class="form-control" [(ngModel)]="dropZone.country" 
+                            placeholder="Country" name="dCountry" #dCountry="ngModel" required/>
+                            
+                        <div [hidden]="dCountry.valid || dCountry.untouched" class="alert alert-danger">
+                            Country is required
+                        </div>
+                    </div>
+        
+                    <div class="form-group">
+                        <label class="control-label">Runway type</label>
+        
+                        <input class="form-control" [(ngModel)]="dropZone.runwayType" 
+                            placeholder="Runway type"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Runway length</label>
+        
+                        <input class="form-control" [(ngModel)]="dropZone.runwayLength" 
+                            placeholder="Runway length"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Square</label>
+        
+                        <input class="form-control" [(ngModel)]="dropZone.square" 
+                            placeholder="Square"/>
+                    </div>
+        
+                    <div class="form-group">
+                        <label class="control-label">Latitude</label>
+        
+                        <input class="form-control" [(ngModel)]="dropZone.latitude" 
+                            placeholder="Latitude"/>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label">Longitude</label>
+        
+                        <input class="form-control" [(ngModel)]="dropZone.longitude" 
+                            placeholder="Longitude"/>
+                    </div>
+                    
+                    <div class="form-horizontal row" style="margin-bottom: 10px">
+                        <p class="text-left"><b>Registration date: </b>{{dropZone.registrationDate | date: 'dd.MM.yyyy'}}</p>
+                    </div>
+    
+                    <div class="form-horizontal row" style="margin-bottom: 10px">
+                        <p class="text-left"><b>Modified date: </b>{{dropZone.modifiedAt | date: 'dd.MM.yyyy'}}</p>
+                    </div>
+
+                    <div *ngIf='isCreateDropZone' class="form-group">
+                        <label class="control-label">Admin email</label>
+        
+                        <input class="form-control" [(ngModel)]="newDropZoneAdminEmail" 
+                            placeholder="Admin email" name="ndAdminEmail" #ndAdminEmail="ngModel" required/>
+                            
+                        <div [hidden]="ndAdminEmail.valid || ndAdminEmail.untouched" class="alert alert-danger">
+                            Admin email is required
+                        </div>
+                    </div>
+
+                    <div *ngIf='isCreateDropZone' class="form-group">
+                        <button [disabled]="dTitle.invalid || dCountry.invalid || ndAdminEmail.invalid"
+                            class="btn btn-primary btn-outline-success col-md-6" 
+                            (click)="createDropZone()">Create</button>
+                    </div>
+
+                    <div *ngIf='!isCreateDropZone' class="form-group">
+                        <button [disabled]="dTitle.invalid || dCountry.invalid"
+                            class="btn btn-primary btn-outline-success col-md-6" 
+                            (click)="editDropZone()">Edit</button>
+                    </div>
+                </ng-template>
+
+                <ng-template #showDropZone> 
+                    <div class="form-horizontal row" style="margin-bottom: 10px">
+                        <p class="text-left"><b>Title: </b>{{dropZone.title}}</p>
+                    </div>
+        
+                    <div class="form-horizontal row" style="margin-bottom: 10px">
+                        <p class="text-left"><b>Country: </b>{{dropZone.country}}</p>
+                    </div>
+        
+                    <div class="form-horizontal row" style="margin-bottom: 10px">
+                        <p class="text-left"><b>Runway type: </b>{{dropZone.runwayType}}</p>
+                    </div>
+
+                    <div class="form-horizontal row" style="margin-bottom: 10px">
+                        <p class="text-left"><b>Runway length: </b>{{dropZone.runwayLength}}</p>
+                    </div>
+
+                    <div class="form-horizontal row" style="margin-bottom: 10px">
+                        <p class="text-left"><b>Square: </b>{{dropZone.square}}</p>
+                    </div>
+        
+                    <div class="form-horizontal row" style="margin-bottom: 10px">
+                        <p class="text-left"><b>Latitude: </b>{{dropZone.latitude}}</p>
+                    </div>
+
+                    <div class="form-horizontal row" style="margin-bottom: 10px">
+                        <p class="text-left"><b>Longitude: </b>{{dropZone.longitude}}</p>
+                    </div>
+                    
+                    <div class="form-horizontal row" style="margin-bottom: 10px">
+                        <p class="text-left"><b>Registration date: </b>{{dropZone.registrationDate | date: 'dd.MM.yyyy'}}</p>
+                    </div>
+    
+                    <div class="form-horizontal row" style="margin-bottom: 10px">
+                        <p class="text-left"><b>Modified date: </b>{{dropZone.modifiedAt | date: 'dd.MM.yyyy'}}</p>
+                    </div>
+                </ng-template>
+            </div> 
+
+            <div class="col-ld-12 col-md-12 col-xs-12 col-sm-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Country</th>
+                            <th>Runway type</th>
+                            <th>Latitude</th>
+                            <th>Longitude</th>
+                            <th>Registration date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of dropZones">
+                            <td>{{item.title}}</td>
+                            <td>{{item.country}}</td>
+                            <td>{{item.runwayType}}</td>
+                            <td>{{item.latitude}}</td>
+                            <td>{{item.longitude}}</td>
+                            <td>{{item.registrationDate | date: 'dd.MM.yyyy'}}</td>
+                            <td>
+                                <button class="btn btn-primary btn-outline-success" 
+                                    (click)="getDropZone(item.id)">Select</button> 
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div> 
+            
+        <div class="container" *ngIf='selectedTab == "Aircrafts"'>
+            <div class="center-block">
+                <h1>Aircrafts</h1>
+            </div>
+
+            <div *ngIf='user.dropZoneId != null' class="form-group">
+                <button class="btn btn-primary btn-outline-success col-md-6" 
+                    (click)="getDropZoneAircrafts(user.dropZoneId)">Show dropzone aircrafts</button>
+                
+                <button class="btn btn-primary btn-outline-success col-md-6" 
+                    (click)="getAircrafts()">Show all</button>
+            </div>
+
+            <div *ngIf='claims.writeAircrafts' class="form-group">
+                <button class="btn btn-primary btn-outline-success col-md-6" 
+                    (click)="setNewAircraft()">New..</button>
+            </div>
+
+            <div *ngIf="aircraft != null" class="col-ld-12 col-md-12 col-xs-12 col-sm-12">
+                <div *ngIf="claims.writeAircrafts; then editAircraft else showAircraft"></div>
+                
+                <ng-template #editAircraft>    
+                    <div class="form-group">
+                        <label class="control-label">Type</label>
+        
+                        <input class="form-control" [(ngModel)]="aircraft.type" 
+                            placeholder="Type" name="aType" #aType="ngModel" required/>
+                            
+                        <div [hidden]="aType.valid || aType.untouched" class="alert alert-danger">
+                            Type is required
+                        </div>
+                    </div>
+        
+                    <div class="form-group">
+                        <label class="control-label">Capacity</label>
+        
+                        <input class="form-control" [(ngModel)]="aircraft.capacity" placeholder="Capacity"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Is Available</label>
+        
+                        <input type="checkbox" class="form-control" [(ngModel)]="aircraft.isAvailable">
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-ld-2 col-md-2 col-xs-12 col-sm-12 control-label text-right">Drop zone </label>
+
+                        <div class="col-ld-10 col-md-10 col-xs-12 col-sm-12">
+                            <select style="margin-bottom: 3px" [(ngModel)]="aircraft.dropZoneId" 
+                                class="form-control" name="aDropZone" #aDropZone="ngModel" required>
+                                <option *ngFor="let item of dropZones" [value]="item.id">
+                                    {{item.title}}, {{item.country}}
+                                </option>
+                            </select> 
+                        </div>     
+
+                        <div [hidden]="aDropZone.valid || aDropZone.untouched" class="alert alert-danger">
+                            Drop zone is required
+                        </div>
+                    </div>
+    
+                    <div class="form-horizontal row" style="margin-bottom: 10px">
+                        <p class="text-left"><b>Modified date: </b>{{aircraft.modifiedAt | date: 'dd.MM.yyyy'}}</p>
+                    </div>
+
+                    <div *ngIf='isCreateAircraft' class="form-group">
+                        <button [disabled]="aType.invalid || aDropZone.invalid"
+                            class="btn btn-primary btn-outline-success col-md-6" 
+                            (click)="createAircraft()">Create</button>
+                    </div>
+
+                    <div *ngIf='!isCreateAircraft' class="form-group">
+                        <button [disabled]="aType.invalid || aDropZone.invalid"
+                            class="btn btn-primary btn-outline-success col-md-6" 
+                            (click)="editAircraft()">Edit</button>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-danger btn-outline-success col-md-6" 
+                            (click)="deleteAircraft()">Delete</button>
+                    </div>
+                </ng-template>
+
+                <ng-template #showAircraft> 
+                    <div class="form-horizontal row" style="margin-bottom: 10px">
+                        <p class="text-left"><b>Type: </b>{{aircraft.type}}</p>
+                    </div>
+        
+                    <div class="form-horizontal row" style="margin-bottom: 10px">
+                        <p class="text-left"><b>Capacity: </b>{{aircraft.capacity}}</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label">Is Available</label>
+        
+                        <input type="checkbox" class="form-control" [(ngModel)]="aircraft.isAvailable" readonly>
+                    </div>
+
+                    <div class="form-horizontal row" style="margin-bottom: 10px">
+                        <p class="text-left"><b>Drop zone: </b>{{aircraft.dropZone.title}}, {{aircraft.dropZone.country}}</p>
+                    </div>
+    
+                    <div class="form-horizontal row" style="margin-bottom: 10px">
+                        <p class="text-left"><b>Modified date: </b>{{aircraft.modifiedAt | date: 'dd.MM.yyyy'}}</p>
+                    </div>
+                </ng-template>
+            </div> 
+
+            <div class="col-ld-12 col-md-12 col-xs-12 col-sm-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Capacity</th>
+                            <th>Is available</th>
+                            <th>Drop zone</th>
+                            <th>Modified date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of aircrafts">
+                            <td>{{item.type}}</td>
+                            <td>{{item.capacity}}</td>
+                            <td>
+                                <label *ngIf='item.isAvailable' class="control-label">Available</label>
+                                <label *ngIf='!item.isAvailable' class="control-label">Not available</label>
+                            </td>
+                            <td>{{item.dropZone.title}}, {{item.dropZone.country}}</td>
+                            <td>{{item.modifiedAt | date: 'dd.MM.yyyy'}}</td>
+                            <td>
+                                <button class="btn btn-primary btn-outline-success" 
+                                    (click)="getAircraft(item.id)">Select</button> 
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div> 
+        
+        <div class="container" *ngIf='selectedTab == "Users"'>
+            <div class="center-block">
+                <h1>Users</h1>
+            </div>
+
+            <div *ngIf='user.dropZoneId != null' class="form-group">
+                <button class="btn btn-primary btn-outline-success col-md-6" 
+                    (click)="getDropZoneUsers(user.dropZoneId)">Show dropzone users</button>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-primary btn-outline-success col-md-6" 
+                    (click)="getSportsmen()">Show sportsmen</button>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-primary btn-outline-success col-md-6" 
+                    (click)="getUsers()">Show all</button>
+            </div>
+
+            <div *ngIf="selectedUser != null" class="col-ld-12 col-md-12 col-xs-12 col-sm-12">
+                <div class="form-horizontal row" style="margin-bottom: 10px">
+                    <p class="text-left"><b>Name: </b>{{selectedUser.name}}</p>
+                </div>
+    
+                <div class="form-horizontal row" style="margin-bottom: 10px">
+                    <p class="text-left"><b>Surname: </b>{{selectedUser.surname}}</p>
+                </div>
+    
+                <div class="form-horizontal row" style="margin-bottom: 10px">
+                    <p class="text-left"><b>Email: </b>{{selectedUser.email}}</p>
+                </div>
+
+                <div class="form-horizontal row" style="margin-bottom: 10px">
+                    <p class="text-left"><b>Role: </b>{{selectedUser.role.value}}</p>
+                </div>
+
+                <div class="form-horizontal row" style="margin-bottom: 10px">
+                    <p class="text-left"><b>Phone: </b>{{selectedUser.phone}}</p>
+                </div>
+
+                <div class="form-horizontal row" style="margin-bottom: 10px">
+                    <p class="text-left"><b>Address: </b>{{selectedUser.address}}</p>
+                </div>
+                
+                <div class="form-horizontal row" style="margin-bottom: 10px">
+                    <p class="text-left"><b>Birthday: </b>{{selectedUser.birthday | date: 'dd.MM.yyyy'}}</p>
+                </div>
+
+                <div *ngIf='isCreateAircraft' class="form-group">
+                    <button class="btn btn-primary btn-outline-success col-md-6" 
+                        (click)="setSportsmanRole()">Set sportsman role</button>
+                </div>
+
+                <div *ngIf='!isCreateAircraft' class="form-group">
+                    <button class="btn btn-primary btn-outline-success col-md-6" 
+                        (click)="setPackerRole()">Set packer role</button>
+                </div>
+
+                <div *ngIf='user.role.value == "SuperAdmin" || user.role.value == "Admin"' class="form-group">
+                    <button class="btn btn-primary btn-outline-success col-md-6" 
+                        (click)="setManagerRole()">Set manager role</button>
+                </div>
+
+                <div *ngIf='user.role.value == "SuperAdmin"' class="form-group">
+                    <button class="btn btn-primary btn-outline-success col-md-6" 
+                        (click)="setAdminRole()">Set admin role</button>
+                </div>
+
+                <div *ngIf='user.role.value == "SuperAdmin"' class="form-group">
+                    <button class="btn btn-danger btn-outline-success col-md-6" 
+                        (click)="deleteUser(selectedUser.id)">Delete</button>
+                </div>
+            </div> 
+
+            <div class="col-ld-12 col-md-12 col-xs-12 col-sm-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Surname</th>
+                            <th>Birthday</th>
+                            <th>Role</th>
+                            <th>Drop zone</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of users">
+                            <td>{{item.name}}</td>
+                            <td>{{item.surname}}</td>
+                            <td>{{item.birthday | date: 'dd.MM.yyyy'}}</td>
+                            <td>{{item.role.value}}</td>
+                            <td>{{item.dropZone.title}</td>
+                            <td>
+                                <button *ngIf='claims.writeUsers' class="btn btn-primary btn-outline-success" 
+                                    (click)="getUser(item.id)">Select</button> 
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

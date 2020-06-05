@@ -15,9 +15,9 @@ export class JumpModel {
 	public dropZoneId: number;
 	public parachuteSystemId: number;
 	public aircraftId: number;
-	
-	public jumpBook: JumpBookModel;
-	public dropZone: DropZoneModel;
-	public parachuteSystem: ParachuteSystemModel;
-	public aircraft: AircraftModel;
+
+	public aircraftType: string;
+	public dropzoneTitle: string;
+	public parachuteSystemTitle: string;
+	public totalFallTime: number;
 };

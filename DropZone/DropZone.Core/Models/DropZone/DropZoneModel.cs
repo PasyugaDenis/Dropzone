@@ -21,6 +21,8 @@ namespace DropZone.Core.Models
 
         public double Longitude { get; set; }
 
+        public DateTime RegistrationDate { get; set; }
+
         public DateTime ModifiedAt { get; set; }
 
 

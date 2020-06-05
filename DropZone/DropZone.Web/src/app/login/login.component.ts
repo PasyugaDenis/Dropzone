@@ -33,9 +33,9 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
-        var token = localStorage.getItem('app_token');
-        var userId = localStorage.getItem('userId');
-        var roleId = localStorage.getItem('roleId');
+        var token = sessionStorage.getItem('app_token');
+        var userId = sessionStorage.getItem('userId');
+        var roleId = sessionStorage.getItem('roleId');
 
         if (token != null && userId != null) {
             this.goToMain(token, userId, roleId);
@@ -44,11 +44,12 @@ export class LoginComponent implements OnInit {
 
     signIn(): any {
         this.userService.authorization(this.user).subscribe((data: any) => { 
-            if (data.isSuccess) {
-                alert(data.errorMessage);
+            console.log(data);
+            if (!data.IsSuccess) {
+                alert(data.ErrorMessage);
             }
             else {
-                this.goToMain(data.token, data.userId, data.roleId);
+                this.goToMain(data.Token, data.UserId, data.RoleId);
             }
         });
     };
@@ -59,24 +60,22 @@ export class LoginComponent implements OnInit {
             return;
         }
             
-        this.createUser();
-    };
-
-    private createUser(): any {
-        this.userService.register(this.newUser).subscribe((userData: any) => { 
-            if (userData.isSuccess) {
-                console.log(userData.errorMessage);
+        this.userService.register(this.newUser).subscribe((data: any) => { 
+            if (!data.IsSuccess) {
+                alert(data.ErrorMessage);
             }
             else {
-                this.goToMain(userData.token, userData.userId, userData.roleId);
+                this.goToMain(data.Token, data.UserId, data.RoleId);
             }
         });
     };
 
     private goToMain(token: string, userId: string, roleId: string): any {
-        localStorage.setItem('app_token', token);
-        localStorage.setItem('userId', userId);
-        localStorage.setItem('roleId', roleId);
+        console.log("To main");
+
+        sessionStorage.setItem('app_token', token);
+        sessionStorage.setItem('userId', userId);
+        sessionStorage.setItem('roleId', roleId);
 
         this.router.navigate(['home']);
     };

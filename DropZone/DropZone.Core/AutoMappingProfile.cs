@@ -9,7 +9,6 @@ namespace DropZone.Core
         public AutoMappingProfile()
         {
             CreateMap<AAD, AADModel>()
-                .ForMember(x => x.Manufacturer, opt => opt.Ignore())
                 .ForMember(x => x.HashBlock, opt => opt.Ignore())
                 .ForMember(x => x.ParachuteSystem, opt => opt.Ignore())
                 .ReverseMap();

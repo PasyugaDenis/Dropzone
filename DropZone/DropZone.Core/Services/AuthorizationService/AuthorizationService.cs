@@ -4,6 +4,7 @@ using Microsoft.Owin.Security.OAuth;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading;
 
 namespace DropZone.Core.Services.AuthorizationService
 {
@@ -28,6 +29,7 @@ namespace DropZone.Core.Services.AuthorizationService
             var identity = new ClaimsIdentity(claims, _authOptions.AuthenticationType);
             var ticket = new AuthenticationTicket(identity, new AuthenticationProperties());
             var token = _authOptions.AccessTokenFormat.Protect(ticket);
+
             return token;
         }
 
