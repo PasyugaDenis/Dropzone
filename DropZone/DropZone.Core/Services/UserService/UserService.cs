@@ -31,8 +31,14 @@ namespace DropZone.Core.Services.UserService
         {
             var user = await _repository.SingleOrDefaultAsync<User>(m => m.Email == email);
 
+            if (user == null)
+            {
+                throw new Exception($"User with email {email} is not exist");
+            }
+
             var userModel = Mapper.Map<UserModel>(user);
             userModel.Role = Mapper.Map<RoleModel>(user.Role);
+            userModel.DropZone = Mapper.Map<DropZoneModel>(user.DropZone);
 
             return userModel;
         }
@@ -41,8 +47,15 @@ namespace DropZone.Core.Services.UserService
         {
             var user = await _repository.SingleOrDefaultAsync<User>(m => m.Id == userId);
 
+            if (user == null)
+            {
+                throw new Exception($"User with id {userId} is not exist");
+            }
+
             var userModel = Mapper.Map<UserModel>(user);
             userModel.Role = Mapper.Map<RoleModel>(user.Role);
+            userModel.DropZone = Mapper.Map<DropZoneModel>(user.DropZone);
+            userModel.Password = null;
 
             return userModel;
         }
@@ -52,7 +65,7 @@ namespace DropZone.Core.Services.UserService
             var jumpBook = await _repository.SingleOrDefaultAsync<JumpBook>(m => m.SportsmanId == userId);
 
             var jumpBookModel = Mapper.Map<JumpBookModel>(jumpBook);
-            jumpBookModel.Jumps = Mapper.Map<List<JumpModel>>(jumpBook.Jumps);
+            jumpBookModel.Jumps = Mapper.Map<List<JumpModel>>(jumpBook.Jumps) ?? new List<JumpModel>();
 
             return jumpBookModel;
         }
@@ -68,6 +81,7 @@ namespace DropZone.Core.Services.UserService
 
                 userModel.Role = Mapper.Map<RoleModel>(user.Role);
                 userModel.DropZone = Mapper.Map<DropZoneModel>(user.DropZone);
+                userModel.Password = null;
 
                 result.Add(userModel);
             }
@@ -86,6 +100,7 @@ namespace DropZone.Core.Services.UserService
 
                 userModel.Role = Mapper.Map<RoleModel>(user.Role);
                 userModel.DropZone = Mapper.Map<DropZoneModel>(user.DropZone);
+                userModel.Password = null;
 
                 result.Add(userModel);
             }
@@ -107,6 +122,7 @@ namespace DropZone.Core.Services.UserService
 
                 userModel.Role = Mapper.Map<RoleModel>(user.Role);
                 userModel.DropZone = dropZoneModel;
+                userModel.Password = null;
 
                 result.Add(userModel);
             }
@@ -118,9 +134,19 @@ namespace DropZone.Core.Services.UserService
         {
             var role = await GetSportsmanRoleAsync();
 
-            model.RoleId = role.Id;
+            var user = Mapper.Map<User>(model);
+            user.RoleId = role.Id;
+            user.DropZoneId = null;
 
-            var newUser = await _repository.AddAsync(Mapper.Map<User>(model));
+            var newUser = await _repository.AddAsync(user);
+            newUser.Password = null;
+
+            var newJumpBook = new JumpBook
+            {
+                SportsmanId = newUser.Id
+            };
+
+            await _repository.AddAsync(newJumpBook);
 
             return Mapper.Map<UserModel>(newUser);
         }
@@ -131,7 +157,7 @@ namespace DropZone.Core.Services.UserService
 
             var isUserExist = await IsUserExistAsync(model.Email);
 
-            if (isUserExist)
+            if (user.Email != model.Email && isUserExist)
             {
                 throw new Exception($"User with email {model.Email} already exist");
             }
@@ -142,10 +168,14 @@ namespace DropZone.Core.Services.UserService
             user.Phone = model.Phone;
             user.Address = model.Address;
             user.Birthday = model.Birthday;
+            user.DropZoneId = model.DropZoneId;
 
             var newUser = await _repository.UpdateAsync(user);
 
-            return Mapper.Map<UserModel>(newUser);
+            var result = Mapper.Map<UserModel>(newUser);
+            result.Role = Mapper.Map<RoleModel>(newUser.Role);
+
+            return result;
         }
 
         public async Task DeleteUserAsync(long userId)

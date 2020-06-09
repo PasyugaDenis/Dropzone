@@ -15,7 +15,5 @@ namespace DropZone.Database.Models
         public virtual AADType AADType { get; set; }
 
         public virtual HashBlock HashBlock { get; set; }
-
-        public virtual ParachuteSystem ParachuteSystem { get; set; }
     }
 }

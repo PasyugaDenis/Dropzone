@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
     };
 
     signUp(): any {
-        if (this.newUser.password != this.confirmPassword) {
+        if (this.newUser.Password != this.confirmPassword) {
             this.isPasswordsConfirmed = false;
             return;
         }

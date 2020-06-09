@@ -1,5 +1,8 @@
-﻿namespace DropZone.Database.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace DropZone.Database.Models
 {
+    [Table("Aircrafts")]
     public class Aircraft : Entity
     {
         public string Type { get; set; }

@@ -9,6 +9,13 @@ import { DropZoneModel } from '../../models/dropzones/dropzone.model';
 import { AircraftModel } from '../../models/aircrafts/aircraft.model';
 import { DropZoneService } from '../../services/dropZone.service';
 import { AircraftService } from '../../services/aircraft.service';
+import { RoleModel } from '../../models/users/role.model';
+import { ParachuteSystemModel } from '../../models/parachuteSystems/parachuteSystem.model';
+import { ParachuteModel } from '../../models/parachutes/parachute.model';
+import { AADModel } from '../../models/aads/aad.model';
+import { AADTypeModel } from '../../models/aads/aadType.model';
+import { SatchelModel } from '../../models/satchels/satchel.model';
+import { ParachuteService } from '../../services/parachute.service';
 
 @Component({
     selector: 'home-app',
@@ -17,7 +24,8 @@ import { AircraftService } from '../../services/aircraft.service';
         HttpService,
         UserService,
         DropZoneService,
-        AircraftService
+        AircraftService,
+        ParachuteService
     ]
 })
 export class HomeComponent implements OnInit { 
@@ -33,7 +41,7 @@ export class HomeComponent implements OnInit {
 
     user: UserModel;
     selectedUser: UserModel;
-    users: UserModel[];
+    userList: UserModel[];
     jumpBook: JumpBookModel;
     confirmPassword: string;
 
@@ -46,19 +54,49 @@ export class HomeComponent implements OnInit {
     aircrafts: AircraftModel[];
     isCreateAircraft: boolean;
 
+    parachute: ParachuteSystemModel;
+    parachutes: ParachuteSystemModel[];
+    isCreateParachute: boolean;
+
+    plannedUser: any;
+    plannedUsers: any[];
+    plannedFlight: any;
+    plannedFlights: any[];
+
     constructor(
         private router: Router,
         private zone: NgZone,
         private userService: UserService,
         private dropZoneService: DropZoneService,
-        private aircraftService: AircraftService) 
+        private aircraftService: AircraftService,
+        private parachuteService: ParachuteService) 
     { 
+        this.user = new UserModel();
+        this.user.Role = new RoleModel();
+        this.jumpBook = new JumpBookModel();
+        this.jumpBook.Jumps = [];
 
+        this.dropZone = new DropZoneModel();
+        this.dropZones = [];
+
+        this.aircraft = new AircraftModel();
+        this.aircrafts = [];
+
+        this.selectedUser = new UserModel();
+        this.userList = [];
+
+        this.parachute = new ParachuteSystemModel();
+        this.parachute.MainParachute = new ParachuteModel();
+        this.parachute.ReserveParachute = new ParachuteModel();
+        this.parachute.AAD = new AADModel();
+        this.parachute.AAD.AADType = new AADTypeModel();
+        this.parachute.Satchel = new SatchelModel();
+        this.parachutes = [];
     };
 
     ngOnInit(): any {
-        this.userId = +sessionStorage.getItem('roleId');
-        this.roleId = +sessionStorage.getItem('userId');
+        this.userId = +sessionStorage.getItem('userId');
+        this.roleId = +sessionStorage.getItem('roleId');
 
         this.setClaims(this.roleId);
         
@@ -75,48 +113,42 @@ export class HomeComponent implements OnInit {
 
     getUser(userId: number): any {
         this.userService.getUserById(userId).subscribe((data: any) => { 
-            console.log("Get User");
-            console.log(data);
-            
-            if (!data.IsSuccess) {
-                alert(data.ErrorMessage);
-            }
-            else {
+            this.zone.run(() => {
+                console.log("Get User");
+
                 this.user = data;
-            }
+    
+                console.log(this.user);
+            });
         });
     };
 
     getUserJumpBook(userId: number): any {
         this.userService.getUserJumpBook(userId).subscribe((data: any) => { 
-            console.log("Get User JumpBook");
-            console.log(data);
-            
-            if (!data.IsSuccess) {
-                alert(data.ErrorMessage);
-            }
-            else {
-                this.jumpBook = data.JumpBook;
-            }
+            this.zone.run(() => {
+                console.log("Get User JumpBook");
+                
+                this.jumpBook = data;
+
+                console.log(this.jumpBook);
+            });
         });
     };
 
     editProfile(): any {
         this.userService.editUser(this.user).subscribe((data: any) => { 
-            console.log("Edit User");
-            console.log(data);
-
-            if (!data.IsSuccess) {
-                alert(data.ErrorMessage);
-            }
-            else {
+            this.zone.run(() => {
+                console.log("Edit User");
+        
                 this.user = data;
-            }
+    
+                console.log(this.user);
+            });
         });
     };
 
     changePassword(): any {
-        if (this.user.password != this.confirmPassword) {
+        if (this.user.Password != this.confirmPassword) {
             alert("Password is not confirmed!");
             return;
         }
@@ -125,13 +157,8 @@ export class HomeComponent implements OnInit {
             console.log("Change password");
             console.log(data);
 
-            if (!data.IsSuccess) {
-                alert(data.ErrorMessage);
-            }
-            else {
-                this.user.password = null;
-                this.confirmPassword = null;
-            }
+            this.user.Password = null;
+            this.confirmPassword = null;
         });    
     };
     //#endregion
@@ -150,14 +177,10 @@ export class HomeComponent implements OnInit {
     private getDropZones(): any {
         this.dropZoneService.getDropZones().subscribe((data: any) => { 
             console.log("Get DropZones");
-            console.log(data);
 
-            if (!data.IsSuccess) {
-                alert(data.ErrorMessage);
-            }
-            else {
-                this.dropZones = data;
-            }
+            this.dropZones = data;
+
+            console.log(this.dropZones);
         });
     };
 
@@ -168,60 +191,58 @@ export class HomeComponent implements OnInit {
 
         this.dropZoneService.getDropZoneById(dropZoneId).subscribe((data: any) => { 
             console.log("Get DropZone");
-            console.log(data);
 
-            if (!data.IsSuccess) {
-                alert(data.ErrorMessage);
-            }
-            else {
-                this.dropZone = data;
-            }
+            this.dropZone = data;
+            this.dropZone.Aircrafts = [];
+            this.dropZone.Users = [];
+
+            console.log(this.dropZone);
         });
     };
 
     setNewDropZone(): any {
         this.dropZone = new DropZoneModel();
+        this.dropZone.Aircrafts = [];
+        this.dropZone.Users = [];
         this.isCreateDropZone = true;
     };
 
     createDropZone(): any {
         let createDropZoneModel: any = {
-            dropZone: this.dropZone,
-            adminEmail: this.newDropZoneAdminEmail
+            DropZone: this.dropZone,
+            AdminEmail: this.newDropZoneAdminEmail
         };
+
+        console.log(createDropZoneModel);
 
         this.dropZoneService.createDropZone(createDropZoneModel).subscribe((data: any) => { 
             console.log("Create DropZone");
-            console.log(data);
 
-            if (!data.IsSuccess) {
-                alert(data.ErrorMessage);
-            }
-            else {
-                this.dropZone = data;
-                this.isCreateDropZone = false;
-                this.newDropZoneAdminEmail = null;   
+            this.dropZone = null;
 
-                this.getDropZones();
-            }     
+            console.log(this.dropZone);
+
+            this.isCreateDropZone = false;
+            this.newDropZoneAdminEmail = null;   
+
+            this.getDropZones();    
         });
     };
 
-    editDropZone(): any {
+    changeDropZone(): any {
+        console.log(this.dropZone);
+
         this.dropZoneService.editDropZone(this.dropZone).subscribe((data: any) => { 
             console.log("Edit DropZone");
-            console.log(data);
 
-            if (!data.IsSuccess) {
-                alert(data.ErrorMessage);
-            }
-            else {
-                this.dropZone = data;                  
-                this.isCreateDropZone = false;   
-                this.newDropZoneAdminEmail = null;   
+            this.dropZone = data;  
+            
+            console.log(this.dropZone);
 
-                this.getDropZones();
-            }      
+            this.isCreateDropZone = false;   
+            this.newDropZoneAdminEmail = null;   
+
+            this.getDropZones();
         });
     };
     //#endregion
@@ -239,28 +260,20 @@ export class HomeComponent implements OnInit {
     getAircrafts(): any {
         this.aircraftService.getAircrafts().subscribe((data: any) => { 
             console.log("Get Aircrafts");
-            console.log(data);
 
-            if (!data.IsSuccess) {
-                alert(data.ErrorMessage);
-            }
-            else {
-                this.aircrafts = data;
-            }
+            this.aircrafts = data;
+
+            console.log(this.aircrafts);
         });
     };
 
     getDropZoneAircrafts(dropZoneId: number): any {
         this.aircraftService.getDropZoneAircrafts(dropZoneId).subscribe((data: any) => { 
             console.log("Get DropZone Aircrafts");
-            console.log(data);
+                
+            this.aircrafts = data;
 
-            if (!data.IsSuccess) {
-                alert(data.ErrorMessage);
-            }
-            else {
-                this.aircrafts = data;
-            }
+            console.log(this.aircrafts);
         });
     };
 
@@ -270,14 +283,10 @@ export class HomeComponent implements OnInit {
 
         this.aircraftService.getAircraftById(aircraftId).subscribe((data: any) => { 
             console.log("Get Aircraft");
-            console.log(data);
+                
+            this.aircraft = data;
 
-            if (!data.IsSuccess) {
-                alert(data.ErrorMessage);
-            }
-            else {
-                this.aircraft = data;
-            }
+            console.log(this.aircraft);
         });
     };
 
@@ -289,34 +298,28 @@ export class HomeComponent implements OnInit {
     createAircraft(): any {
         this.aircraftService.createAircraft(this.aircraft).subscribe((data: any) => { 
             console.log("Create Aircraft");
-            console.log(data);
 
-            if (!data.IsSuccess) {
-                alert(data.ErrorMessage);
-            }
-            else {
-                this.aircraft = data;
-                this.isCreateAircraft = false;   
+            this.aircraft = data;
+    
+            console.log(this.aircraft);
 
-                this.getAircrafts();
-            }     
+            this.isCreateAircraft = false;   
+
+            this.getAircrafts();
         });
     };
 
     editAircraft(): any {
         this.aircraftService.editAircraft(this.aircraft).subscribe((data: any) => { 
             console.log("Edit Aircraft");
-            console.log(data);
+            
+            this.aircraft = data;
 
-            if (!data.IsSuccess) {
-                alert(data.ErrorMessage);
-            }
-            else {
-                this.aircraft = data;  
-                this.isCreateAircraft = false;   
+            console.log(this.aircraft);
+ 
+            this.isCreateAircraft = false;   
 
-                this.getAircrafts();
-            }      
+            this.getAircrafts();
         });
     };
 
@@ -327,17 +330,11 @@ export class HomeComponent implements OnInit {
         
         this.aircraftService.deleteAircraft(aircraftId).subscribe((data: any) => { 
             console.log("Delete Aircraft");
-            console.log(data);
 
-            if (!data.IsSuccess) {
-                alert(data.ErrorMessage);
-            }
-            else {
-                this.aircraft = null;  
-                this.isCreateAircraft = false;   
+            this.aircraft = null;  
+            this.isCreateAircraft = false;   
 
-                this.getAircrafts();
-            }      
+            this.getAircrafts();
         });
     };
     //#endregion
@@ -354,14 +351,22 @@ export class HomeComponent implements OnInit {
     getUsers(): any {
         this.userService.getUsers().subscribe((data: any) => { 
             console.log("Get Users");
-            console.log(data);
 
-            if (!data.IsSuccess) {
-                alert(data.ErrorMessage);
-            }
-            else {
-                this.users = data;
-            }
+            this.userList = data;
+
+            console.log(this.userList);
+        });
+    };
+
+    getSelectedUser(userId: number): any {
+        this.userService.getUserById(userId).subscribe((data: any) => { 
+            this.zone.run(() => {
+                console.log("Get User");
+
+                this.selectedUser = data;
+    
+                console.log(this.selectedUser);
+            });
         });
     };
 
@@ -370,12 +375,7 @@ export class HomeComponent implements OnInit {
             console.log("Get DropZone Users");
             console.log(data);
 
-            if (!data.IsSuccess) {
-                alert(data.ErrorMessage);
-            }
-            else {
-                this.users = data;
-            }
+            this.userList = data;
         });
     };
 
@@ -384,18 +384,13 @@ export class HomeComponent implements OnInit {
             console.log("Get Sportsmen");
             console.log(data);
 
-            if (!data.IsSuccess) {
-                alert(data.ErrorMessage);
-            }
-            else {
-                this.users = data;
-            }
+            this.userList = data;
         });
     };
 
     setSportsmanRole(): any {
         let userRoleModel: any = {
-            userId: this.selectedUser.id,
+            userId: this.selectedUser.Id,
             roleId: 10
         };
 
@@ -403,20 +398,15 @@ export class HomeComponent implements OnInit {
             console.log("Get Role");
             console.log(data);
 
-            if (!data.IsSuccess) {
-                alert(data.ErrorMessage);
-            }
-            else {
-                this.selectedUser = null;
+            this.selectedUser = null;
 
-                this.getUsers();
-            }
+            this.getUsers();
         });
     };
 
     setPackerRole(): any {
         let userRoleModel: any = {
-            userId: this.selectedUser.id,
+            userId: this.selectedUser.Id,
             roleId: 9
         };
 
@@ -424,20 +414,15 @@ export class HomeComponent implements OnInit {
             console.log("Get Role");
             console.log(data);
 
-            if (!data.IsSuccess) {
-                alert(data.ErrorMessage);
-            }
-            else {
-                this.selectedUser = null;
+            this.selectedUser = null;
 
-                this.getUsers();
-            }
+            this.getUsers();
         });
     };
 
     setManagerRole(): any {
         let userRoleModel: any = {
-            userId: this.selectedUser.id,
+            userId: this.selectedUser.Id,
             roleId: 8
         };
 
@@ -445,20 +430,15 @@ export class HomeComponent implements OnInit {
             console.log("Get Role");
             console.log(data);
 
-            if (!data.IsSuccess) {
-                alert(data.ErrorMessage);
-            }
-            else {
-                this.selectedUser = null;
+            this.selectedUser = null;
 
-                this.getUsers();
-            }
+            this.getUsers();
         });
     };
 
     setAdminRole(): any {
         let userRoleModel: any = {
-            userId: this.selectedUser.id,
+            userId: this.selectedUser.Id,
             roleId: 7
         };
 
@@ -466,14 +446,9 @@ export class HomeComponent implements OnInit {
             console.log("Get Role");
             console.log(data);
 
-            if (!data.IsSuccess) {
-                alert(data.ErrorMessage);
-            }
-            else {
-                this.selectedUser = null;
+            this.selectedUser = null;
 
-                this.getUsers();
-            }
+            this.getUsers();
         });
     };
 
@@ -486,21 +461,140 @@ export class HomeComponent implements OnInit {
             console.log("Delete User");
             console.log(data);
 
-            if (!data.IsSuccess) {
-                alert(data.ErrorMessage);
-            }
-            else {
-                this.selectedUser = null;  
+            this.selectedUser = null;  
 
-                this.getUsers();
-            }      
+            this.getUsers();
         });
     };
+    //#endregion
+
+    //#region Parachutes
+    goToParachutes(): any {
+        this.selectedTab = "Parachutes";
+
+        this.parachute = null;
+
+        this.getParachutes();
+    };
+
+    getParachutes(): any {
+        this.parachuteService.getParachutes().subscribe((data: any) => { 
+            console.log("Get Parachutes");
+
+            this.parachutes = data;
+
+            console.log(this.parachutes);
+        });
+    };
+
+    getParachute(id: number): any {
+        this.parachuteService.getParachuteById(id).subscribe((data: any) => { 
+            console.log("Get Parachute");
+
+            this.parachute = data;
+
+            console.log(this.parachute);
+        });
+    };
+        
+    editParachute(): any {
+        this.isCreateParachute = false;
+
+        this.parachuteService.editParachute(this.parachute).subscribe((data: any) => { 
+            console.log("Edit Parachute");
+
+            this.parachute = null;
+
+            this.getParachutes();
+        });
+    };
+        
+    createParachute(): any {
+        this.isCreateParachute = false;
+
+        this.parachuteService.createParachute(this.parachute).subscribe((data: any) => { 
+            console.log("Create Parachute");
+
+            this.parachute = null;
+
+            this.getParachutes();
+        });
+    };
+        
+    setNewParachute(): any {
+        this.parachute = new ParachuteSystemModel();
+        this.parachute.MainParachute = new ParachuteModel();
+        this.parachute.ReserveParachute = new ParachuteModel();
+        this.parachute.AAD = new AADModel();
+        this.parachute.AAD.AADType = new AADTypeModel();
+        this.parachute.Satchel = new SatchelModel();
+
+        this.isCreateParachute = true;
+    };
+    //#endregion
+
+    //#region Flights
+    goToFlights(): any {
+        this.selectedTab = "Flight";
+
+        this.plannedUsers = [];
+        this.plannedFlights = [];
+        this.plannedFlight = {
+            Aircraft: AircraftModel,
+            Users: []
+        };
+        this.plannedUser = {
+            User: UserModel,
+            Jumps: 0
+        };
+    };
+
+    planneUser(): any {
+        this.plannedUsers.forEach(element => {
+            if (element.User.Id == this.plannedUser.User.Id){
+                return;
+            }
+        });
+
+        this.plannedUsers.push(this.plannedUser);
+
+        this.plannedUser = {
+            User: UserModel,
+            Jumps: 0
+        };    
+
+    };
+
+    addUserToFlight(user: UserModel): any {
+        this.plannedFlight.Users.push(user);
+    };
+
+    deletePlannedUser(index: number): any {
+        this.plannedUsers.splice(index, 1);
+    };
+
+    deleteUserFromFlight(index: number): any {
+        this.plannedFlight.Users.splice(index, 1);
+    };
+
+    formFlight(): any {
+        this.plannedFlights.push(this.plannedFlight);
+
+        this.plannedFlight = {
+            Aircraft: AircraftModel,
+            Users: []
+        };
+    };
+
+    deleteFlight(index: number): any {
+        this.plannedFlights.splice(index, 1);
+    };
+    //#endregion
 
     //utilities
     private setClaims(roleId: number): any {
         switch(roleId){
-            case 6:
+            case 5:
             case 7:
                 this.claims.writeDropZone = true;
                 this.claims.writeParachutes = true;
@@ -521,12 +615,10 @@ export class HomeComponent implements OnInit {
     };
 
     logout(): any {
-        console.log("Logout");
-
         sessionStorage.removeItem('app_token');
         sessionStorage.removeItem('userId');
         sessionStorage.removeItem('roleId');
 
-        this.router.navigate(['*']);
+        this.router.navigate(['']);
     };
 }

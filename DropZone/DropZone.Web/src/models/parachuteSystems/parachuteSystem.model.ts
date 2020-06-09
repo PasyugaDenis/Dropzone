@@ -5,20 +5,20 @@ import { UserModel } from "../users/user.model";
 import { HashBlockModel } from "../hashBlocks/hashBlock.model";
 
 export class ParachuteSystemModel {
-	public id: number;
-    public modifiedAt: Date;
+	public Id: number;
+    public ModifiedAt: Date;
 
-	public mainParachuteId: number;
-	public reserveParachuteId: number;
-	public aadId: number;
-	public satchelId: number;
-	public userId: number;
-    public hashBlockId: number;
+	public MainParachuteId: number;
+	public ReserveParachuteId: number;
+	public AADId: number;
+	public SatchelId: number;
+	public UserId: number;
+    public HashBlockId: number;
     
-	public mainParachute: ParachuteModel;
-	public reserveParachute: ParachuteModel;
-	public aad: AADModel;
-	public satchel: SatchelModel;
-	public user: UserModel;
-    public hashBlock: HashBlockModel;
+	public MainParachute: ParachuteModel;
+	public ReserveParachute: ParachuteModel;
+	public AAD: AADModel;
+	public Satchel: SatchelModel;
+	public User: UserModel;
+    public HashBlock: HashBlockModel;
 };

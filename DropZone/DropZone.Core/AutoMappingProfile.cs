@@ -10,7 +10,6 @@ namespace DropZone.Core
         {
             CreateMap<AAD, AADModel>()
                 .ForMember(x => x.HashBlock, opt => opt.Ignore())
-                .ForMember(x => x.ParachuteSystem, opt => opt.Ignore())
                 .ReverseMap();
 
             CreateMap<AADType, AADTypeModel>()
@@ -64,7 +63,6 @@ namespace DropZone.Core
             CreateMap<Satchel, SatchelModel>()
                 .ForMember(x => x.Manufacturer, opt => opt.Ignore())
                 .ForMember(x => x.HashBlock, opt => opt.Ignore())
-                .ForMember(x => x.ParachuteSystem, opt => opt.Ignore())
                 .ReverseMap();
 
             CreateMap<User, UserModel>()

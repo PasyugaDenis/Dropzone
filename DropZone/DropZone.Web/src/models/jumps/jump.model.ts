@@ -4,20 +4,15 @@ import { ParachuteSystemModel } from "../parachuteSystems/parachuteSystem.model"
 import { AircraftModel } from "../aircrafts/aircraft.model";
 
 export class JumpModel {
-	public id: number;
-	public task: string;
-	public height: number;
-	public fallTime: number;
-	public date: Date;
-	public modifiedAt: Date;
+	public Id: number;
+	public Task: string;
+	public Height: number;
+	public FallTime: number;
+	public Date: Date;
+	public ModifiedAt: Date;
 
-	public jumpBookId: number;
-	public dropZoneId: number;
-	public parachuteSystemId: number;
-	public aircraftId: number;
-
-	public aircraftType: string;
-	public dropzoneTitle: string;
-	public parachuteSystemTitle: string;
-	public totalFallTime: number;
+	public JumpBookId: number;
+	public DropZoneId: number;
+	public ParachuteSystemId: number;
+	public AircraftId: number;
 };

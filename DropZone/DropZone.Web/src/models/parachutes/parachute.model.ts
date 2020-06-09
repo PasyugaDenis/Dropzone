@@ -2,20 +2,20 @@ import { ManufacturerModel } from "../manufacturers/manufacturer.model";
 import { HashBlockModel } from "../hashBlocks/hashBlock.model";
 
 export class ParachuteModel {
-	public id: number;
-	public area: number;
-	public layingVolume: number;
-	public weight: number;
-	public layingCount: number;
-	public sectionCount: number;
-	public isReserve: boolean;
-	public layingDate: Date;
-	public maintenanceDate: Date;
-	public modifiedAt: Date;
+	public Id: number;
+	public Area: number;
+	public LayingVolume: number;
+	public Weight: number;
+	public LayingCount: number;
+	public SectionCount: number;
+	public IsReserve: boolean;
+	public LayingDate: Date;
+	public MaintenanceDate: Date;
+	public ModifiedAt: Date;
 
-	public manufacturerId: number;
-	public hashBlockId: number;
+	public ManufacturerId: number;
+	public HashBlockId: number;
 	
-	public manufacturer: ManufacturerModel;
-	public hashBlock: HashBlockModel;
+	public Manufacturer: ManufacturerModel;
+	public HashBlock: HashBlockModel;
 };

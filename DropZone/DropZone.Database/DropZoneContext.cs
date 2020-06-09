@@ -36,23 +36,9 @@ namespace DropZone.Database
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Aircraft>().ToTable("Aircrafts");
+
             modelBuilder.Properties<DateTime>().Configure(c => c.HasColumnType("datetime2"));
-
-            modelBuilder.Entity<ParachuteSystem>()
-                .HasRequired(ps => ps.AAD)
-                .WithRequiredPrincipal(aad => aad.ParachuteSystem)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<ParachuteSystem>()
-                .HasRequired(ps => ps.MainParachute);
-
-            modelBuilder.Entity<ParachuteSystem>()
-                .HasRequired(ps => ps.ReserveParachute);
-
-            modelBuilder.Entity<ParachuteSystem>()
-                .HasRequired(ps => ps.Satchel)
-                .WithRequiredPrincipal(s => s.ParachuteSystem)
-                .WillCascadeOnDelete(false);
 
             base.OnModelCreating(modelBuilder);
         }

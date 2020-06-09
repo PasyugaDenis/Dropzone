@@ -9,11 +9,11 @@ export class DropZoneService{ //ADD
     constructor(private httpService: HttpService) { };
 
     //#region POST
-    createDropZone (model: DropZoneModel): any { //ADD
+    createDropZone (model: any): any { //ADD
         return this.httpService.postData(this.controllerPrefix + 'Create', model);
     };
 
-    editDropZone (model: DropZoneModel): any { //ADD
+    editDropZone (model: any): any { //ADD
         return this.httpService.postData(this.controllerPrefix + 'Edit', model);
     };
     //#endregion

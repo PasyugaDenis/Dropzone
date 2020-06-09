@@ -10,7 +10,7 @@ namespace DropZone.Core.Managers.DropZoneManager
 
         Task<IEnumerable<DropZoneModel>> GetDropZonesAsync();
 
-        Task<DropZoneModel> CreateDropZoneAsync(DropZoneModel model);
+        Task<DropZoneModel> CreateDropZoneAsync(DropZoneModel model, string adminEmail);
 
         Task<DropZoneModel> EditDropZoneAsync(DropZoneModel model);
     }

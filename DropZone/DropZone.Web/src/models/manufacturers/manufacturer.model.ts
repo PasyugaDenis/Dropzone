@@ -1,6 +1,6 @@
 export class ManufacturerModel {
-	public id: number;
-	public title: string;
-	public country: string;
-	public modifiedAt: Date;
+	public Id: number;
+	public Title: string;
+	public Country: string;
+	public ModifiedAt: Date;
 };

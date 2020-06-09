@@ -57,23 +57,44 @@ namespace DropZone.Core.Services.AircraftService
 
         public async Task<AircraftModel> GetAircraftAsync(long id)
         {
-            var result = await _repository.GetAsync<Aircraft>(id);
+            var aircraft = await _repository.GetAsync<Aircraft>(id);
 
-            return Mapper.Map<AircraftModel>(result);
+            var result = Mapper.Map<AircraftModel>(aircraft);
+            result.DropZone = Mapper.Map<DropZoneModel>(aircraft.DropZone);
+
+            return result;
         }
 
         public async Task<IEnumerable<AircraftModel>> GetAircraftsAsync()
         {
-            var result = await _repository.GetAsync<Aircraft>();
+            var result = new List<AircraftModel>();
+            var aircrafts = await _repository.GetAsync<Aircraft>();
 
-            return Mapper.Map<IEnumerable<AircraftModel>>(result);
+            foreach(var item in aircrafts)
+            {
+                var model = Mapper.Map<AircraftModel>(item);
+                model.DropZone = Mapper.Map<DropZoneModel>(item.DropZone);
+
+                result.Add(model);
+            }
+
+            return result;
         }
 
         public async Task<IEnumerable<AircraftModel>> GetDropZoneAircraftsAsync(long id)
         {
-            var result = await _repository.GetAsync<Aircraft>(m => m.DropZoneId == id);
+            var result = new List<AircraftModel>();
+            var aircrafts = await _repository.GetAsync<Aircraft>(m => m.DropZoneId == id);
 
-            return Mapper.Map<IEnumerable<AircraftModel>>(result);
+            foreach (var item in aircrafts)
+            {
+                var model = Mapper.Map<AircraftModel>(item);
+                model.DropZone = Mapper.Map<DropZoneModel>(item.DropZone);
+
+                result.Add(model);
+            }
+
+            return result;
         }
     }
 }

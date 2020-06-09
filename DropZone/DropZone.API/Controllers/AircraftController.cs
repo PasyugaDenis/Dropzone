@@ -10,7 +10,7 @@ using System.Web.Http;
 
 namespace DropZone.API.Controllers
 {
-    [RoutePrefix("DropZones")]
+    [RoutePrefix("Aircrafts")]
     public class AircraftController: BaseApiController
     {
         private readonly IAircraftManager _aircraftManager;

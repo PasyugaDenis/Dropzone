@@ -2,17 +2,17 @@
 {
     public class ParachuteSystem : Entity
     {
-        public long MainParachuteId { get; set; }
+        public long? MainParachuteId { get; set; }
 
-        public long ReserveParachuteId { get; set; }
+        public long? ReserveParachuteId { get; set; }
 
-        public long AADId { get; set; }
+        public long? AADId { get; set; }
 
-        public long SatchelId { get; set; }
+        public long? SatchelId { get; set; }
 
-        public long UserId { get; set; }
+        public long? UserId { get; set; }
 
-        public long HashBlockId { get; set; }
+        public long? HashBlockId { get; set; }
 
 
         public virtual Parachute MainParachute { get; set; }

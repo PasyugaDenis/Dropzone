@@ -3,16 +3,16 @@ import { HashBlockModel } from "../hashBlocks/hashBlock.model";
 import { ParachuteSystemModel } from "../parachuteSystems/parachuteSystem.model";
 
 export class SatchelModel {
-	public id: number;
-	public mainParachuteArea: number;
-	public reserveParachuteArea: number;
-	public maintenanceDate: Date;
-	public modifiedAt: Date;
+	public Id: number;
+	public MainParachuteArea: number;
+	public ReserveParachuteArea: number;
+	public MaintenanceDate: Date;
+	public ModifiedAt: Date;
 
-	public manufacturerId: number;
-	public hashBlockId: number;
+	public ManufacturerId: number;
+	public HashBlockId: number;
 	
-	public manufacturer: ManufacturerModel;
-	public hashBlock: HashBlockModel;
-	public parachuteSystem: ParachuteSystemModel;
+	public Manufacturer: ManufacturerModel;
+	public HashBlock: HashBlockModel;
+	public ParachuteSystem: ParachuteSystemModel;
 };

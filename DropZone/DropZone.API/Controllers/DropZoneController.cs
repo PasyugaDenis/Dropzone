@@ -5,6 +5,7 @@ using System;
 using System.Threading.Tasks;
 using System.Web.Http;
 using DropZone.Core.Managers.DropZoneManager;
+using DropZone.API.Models;
 
 namespace DropZone.API.Controllers
 {
@@ -55,11 +56,11 @@ namespace DropZone.API.Controllers
         //[Authorize]
         [HttpPost]
         [Route("Create")]
-        public async Task<IHttpActionResult> CreateDropZone(DropZoneModel model)
+        public async Task<IHttpActionResult> CreateDropZone(CreateDropZoneModel model)
         {
             try
             {
-                var result = await _dropZoneManager.CreateDropZoneAsync(model);
+                var result = await _dropZoneManager.CreateDropZoneAsync(model.DropZone, model.AdminEmail);
 
                 return Ok(result);
             }

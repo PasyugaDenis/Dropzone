@@ -80,6 +80,18 @@
     <Compile Include="Migrations\202005212007053_AddDropZonRegistrationDateMigration.designer.cs">
       <DependentUpon>202005212007053_AddDropZonRegistrationDateMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006082037254_ChangeAircraftMigration.cs" />
+    <Compile Include="Migrations\202006082037254_ChangeAircraftMigration.designer.cs">
+      <DependentUpon>202006082037254_ChangeAircraftMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006090008535_ChangeParachuteMigration1.cs" />
+    <Compile Include="Migrations\202006090008535_ChangeParachuteMigration1.designer.cs">
+      <DependentUpon>202006090008535_ChangeParachuteMigration1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006090020512_ChangeParachuteMigration2.cs" />
+    <Compile Include="Migrations\202006090020512_ChangeParachuteMigration2.designer.cs">
+      <DependentUpon>202006090020512_ChangeParachuteMigration2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AAD.cs" />
     <Compile Include="Models\AADType.cs" />
@@ -127,6 +139,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005212007053_AddDropZonRegistrationDateMigration.resx">
       <DependentUpon>202005212007053_AddDropZonRegistrationDateMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006082037254_ChangeAircraftMigration.resx">
+      <DependentUpon>202006082037254_ChangeAircraftMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006090008535_ChangeParachuteMigration1.resx">
+      <DependentUpon>202006090008535_ChangeParachuteMigration1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006090020512_ChangeParachuteMigration2.resx">
+      <DependentUpon>202006090020512_ChangeParachuteMigration2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

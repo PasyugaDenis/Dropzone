@@ -19,7 +19,5 @@ namespace DropZone.Core.Models
         public AADTypeModel AADType { get; set; }
 
         public HashBlockModel HashBlock { get; set; }
-
-        public ParachuteSystemModel ParachuteSystem { get; set; }
     }
 }

@@ -155,11 +155,13 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AircraftController.cs" />
     <Compile Include="Controllers\DropZoneController.cs" />
+    <Compile Include="Controllers\ParachuteController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\BaseApiController.cs" />
+    <Compile Include="Models\CreateDropZoneModel.cs" />
     <Compile Include="Models\EditRoleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

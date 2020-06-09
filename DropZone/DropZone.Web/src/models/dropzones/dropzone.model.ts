@@ -2,17 +2,17 @@ import { AircraftModel } from "../aircrafts/aircraft.model";
 import { UserModel } from "../users/user.model";
 
 export class DropZoneModel {
-	public id: number;
-	public title: string;
-	public country: string;
-	public runwayType: string;
-	public runwayLength: number;
-	public square: number;
-	public latitude: number;
-	public longitude: number;
-	public registrationDate: Date;
-	public modifiedAt: Date;
+	public Id: number;
+	public Title: string;
+	public Country: string;
+	public RunwayType: string;
+	public RunwayLength: number;
+	public Square: number;
+	public Latitude: number;
+	public Longitude: number;
+	public RegistrationDate: Date;
+	public ModifiedAt: Date;
 	
-	public aircrafts: AircraftModel[];
-	public users: UserModel[];
+	public Aircrafts: AircraftModel[];
+	public Users: UserModel[];
 };

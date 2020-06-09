@@ -3,14 +3,14 @@ import { ParachuteSystemModel } from "../parachuteSystems/parachuteSystem.model"
 import { HashBlockModel } from "../hashBlocks/hashBlock.model";
 
 export class AADModel {
-	public id: number;
-	public maintenanceDate: Date;
-    public modifiedAt: Date;
+	public Id: number;
+	public MaintenanceDate: Date;
+    public ModifiedAt: Date;
 
-	public aadTypeId: number;
-    public hashBlockId: number;
+	public AADTypeId: number;
+    public HashBlockId: number;
     
-	public aadType: AADTypeModel;
-	public hashBlock: HashBlockModel;
-	public parachuteSystem: ParachuteSystemModel;
+	public AADType: AADTypeModel;
+	public HashBlock: HashBlockModel;
+	public ParachuteSystem: ParachuteSystemModel;
 };

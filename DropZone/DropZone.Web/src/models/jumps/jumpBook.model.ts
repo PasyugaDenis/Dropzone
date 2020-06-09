@@ -2,13 +2,13 @@ import { UserModel } from "../users/user.model";
 import { JumpModel } from "./jump.model";
 
 export class JumpBookModel {
-	public id: number;
-	public category: string;
-	public modifiedAt: Date;
+	public Id: number;
+	public Category: string;
+	public ModifiedAt: Date;
 
-	public sportsmanId: number;
+	public SportsmanId: number;
 	
-	public sportsman: UserModel;
+	public Sportsman: UserModel;
 
-	public jumps: JumpModel[];
+	public Jumps: JumpModel[];
 };

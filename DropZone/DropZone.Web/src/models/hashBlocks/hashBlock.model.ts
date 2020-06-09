@@ -1,16 +1,16 @@
 import { UserModel } from "../users/user.model";
 
 export class HashBlockModel {
-	public id: number;
-	public value: string;
-	public hash: string;
-	public previousHash: string;
-	public createdOn: Date;
-    public modifiedAt: Date;
+	public Id: number;
+	public Value: string;
+	public Hash: string;
+	public PreviousHash: string;
+	public CreatedOn: Date;
+    public ModifiedAt: Date;
 
-	public userId: number;
-    public previousHashBlockId: number;
+	public UserId: number;
+    public PreviousHashBlockId: number;
     
-	public user: UserModel;
-    public previousHashBlock: HashBlockModel;
+	public User: UserModel;
+    public PreviousHashBlock: HashBlockModel;
 };

@@ -1,13 +1,13 @@
 import { DropZoneModel } from "../dropzones/dropzone.model";
 
 export class AircraftModel {
-	public id: number;
-	public type: string;
-	public capacity: number;
-	public isAvailable: boolean;
-	public modifiedAt: Date;
+	public Id: number;
+	public Type: string;
+	public Capacity: number;
+	public IsAvailable: boolean;
+	public ModifiedAt: Date;
 	
-	public dropZoneId: number;
+	public DropZoneId: number;
 	
-	public dropZone: DropZoneModel;
+	public DropZone: DropZoneModel;
 };

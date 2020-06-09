@@ -23,7 +23,5 @@ namespace DropZone.Core.Models
         public ManufacturerModel Manufacturer { get; set; }
 
         public HashBlockModel HashBlock { get; set; }
-
-        public ParachuteSystemModel ParachuteSystem { get; set; }
     }
 }

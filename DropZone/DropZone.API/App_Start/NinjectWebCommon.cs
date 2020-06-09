@@ -3,9 +3,13 @@
 
 namespace DropZone.API.App_Start
 {
+    using DropZone.Core.Managers.AircraftManager;
     using DropZone.Core.Managers.AuthorizationManager;
+    using DropZone.Core.Managers.DropZoneManager;
     using DropZone.Core.Managers.UserManager;
+    using DropZone.Core.Services.AircraftService;
     using DropZone.Core.Services.AuthorizationService;
+    using DropZone.Core.Services.DropZoneService;
     using DropZone.Core.Services.UserService;
     using DropZone.Database.Repository;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
@@ -69,12 +73,16 @@ namespace DropZone.API.App_Start
             kernel.Bind<IRepository>().To<Repository>();
 
             //services
-            kernel.Bind<IUserService>().To<UserService>();
+            kernel.Bind<IAircraftService>().To<AircraftService>();
             kernel.Bind<IAuthorizationService>().To<AuthorizationService>()
                 .WithConstructorArgument(AuthConfig.OAuthOptions);
+            kernel.Bind<IDropZoneService>().To<DropZoneService>();
+            kernel.Bind<IUserService>().To<UserService>();
 
             //managers
+            kernel.Bind<IAircraftManager>().To<AircraftManager>();
             kernel.Bind<IAuthorizationManager>().To<AuthorizationManager>();
+            kernel.Bind<IDropZoneManager>().To<DropZoneManager>();
             kernel.Bind<IUserManager>().To<UserManager>();
         }
     }

@@ -1,13 +1,13 @@
 import { ManufacturerModel } from "../manufacturers/manufacturer.model";
 
 export class AADTypeModel {
-	public id: number;
-	public type: string;
-	public height: number;
-	public speed: number;
-    public modifiedAt: Date;
+	public Id: number;
+	public Type: string;
+	public Height: number;
+	public Speed: number;
+    public ModifiedAt: Date;
 
-	public manufacturerId: number;
+	public ManufacturerId: number;
     
-	public manufacturer: ManufacturerModel;
+	public Manufacturer: ManufacturerModel;
 };

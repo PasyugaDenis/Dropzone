@@ -23,6 +23,8 @@ namespace DropZone.Core.Services.DropZoneService
         {
             var modelEntity = Mapper.Map<Database.Models.DropZone>(model);
 
+            modelEntity.RegistrationDate = DateTime.UtcNow;
+
             var newDropZone = await _repository.AddAsync(modelEntity);
 
             return Mapper.Map<DropZoneModel>(newDropZone);
