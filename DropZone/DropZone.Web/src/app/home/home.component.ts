@@ -565,8 +565,10 @@ export class HomeComponent implements OnInit {
 
     };
 
-    addUserToFlight(user: UserModel): any {
-        this.plannedFlight.Users.push(user);
+    addUserToFlight(item: any): any {
+        item.Jumps--;
+
+        this.plannedFlight.Users.push(item.User);
     };
 
     deletePlannedUser(index: number): any {
