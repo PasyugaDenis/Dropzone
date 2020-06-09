@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{942EC493-603F-4E8C-8B74-305F61FE4633}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DropZone.Core</RootNamespace>
+    <AssemblyName>DropZone.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <Reference Include="Microsoft.Owin, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AutoMappingProfile.cs" />
+    <Compile Include="Managers\AircraftManager\AircraftManager.cs" />
+    <Compile Include="Managers\AircraftManager\IAircraftManager.cs" />
+    <Compile Include="Managers\AuthorizationManager\AuthorizationManager.cs" />
+    <Compile Include="Managers\AuthorizationManager\IAuthorizationManager.cs" />
+    <Compile Include="Managers\DropZoneManager\DropZoneManager.cs" />
+    <Compile Include="Managers\DropZoneManager\IDropZoneManager.cs" />
+    <Compile Include="Managers\UserManager\IUserManager.cs" />
+    <Compile Include="Managers\UserManager\UserManager.cs" />
+    <Compile Include="Models\AAD\AADModel.cs" />
+    <Compile Include="Models\AADType\AADTypeModel.cs" />
+    <Compile Include="Models\Aircraft\AircraftModel.cs" />
+    <Compile Include="Models\DropZone\DropZoneModel.cs" />
+    <Compile Include="Models\HashBlock\HashBlockModel.cs" />
+    <Compile Include="Models\Jump\JumpModel.cs" />
+    <Compile Include="Models\JumpBook\JumpBookModel.cs" />
+    <Compile Include="Models\Manufacturer\ManufacturerModel.cs" />
+    <Compile Include="Models\Parachute\ParachuteModel.cs" />
+    <Compile Include="Models\ParachuteSystem\ParachuteSystemModel.cs" />
+    <Compile Include="Models\Role\RoleModel.cs" />
+    <Compile Include="Models\Satchel\SatchelModel.cs" />
+    <Compile Include="Models\User\AuthModel.cs" />
+    <Compile Include="Models\User\UserModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AircraftService\AircraftService.cs" />
+    <Compile Include="Services\AircraftService\IAircraftService.cs" />
+    <Compile Include="Services\AuthorizationService\AuthorizationService.cs" />
+    <Compile Include="Services\AuthorizationService\Interfaces\IAuthorizationService.cs" />
+    <Compile Include="Services\AuthorizationService\PasswordHasher.cs" />
+    <Compile Include="Services\DropZoneService\DropZoneService.cs" />
+    <Compile Include="Services\DropZoneService\IDropZoneService.cs" />
+    <Compile Include="Services\UserService\Interfaces\IUserService.cs" />
+    <Compile Include="Services\UserService\UserService.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DropZone.Database\DropZone.Database.csproj">
+      <Project>{1889890C-E576-4E78-98E3-E3E291FCCF52}</Project>
+      <Name>DropZone.Database</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

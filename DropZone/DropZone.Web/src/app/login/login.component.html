@@ -1,0 +1,134 @@
+<div class="container" ng-init="init()">
+    <div class="center-block">
+        <div class="page-header">
+            <h1>Drop Zone</h1>
+        </div>
+        
+        <div *ngIf="isRegistration; then registerBlock else authorizeBlock"></div>
+            
+        <ng-template #registerBlock>
+            <div class="panel col-md-4">
+                <div class="form-group">
+                    <label class="control-label">Email</label>
+
+                    <input class="form-control" [(ngModel)]="newUser.Email" 
+                        placeholder="Email" name="nuEmail" #nuEmail="ngModel" required/>
+                        
+                    <div [hidden]="nuEmail.valid || nuEmail.untouched" class="alert alert-danger">
+                        Email is required
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Password</label>
+
+                    <input type="password" class="form-control" [(ngModel)]="newUser.Password" 
+                        placeholder="Password" name="nuPassword" #nuPassword="ngModel" required/>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Confirm password</label>
+
+                    <input type="password" class="form-control" [(ngModel)]="confirmPassword" 
+                        placeholder="Confirm password" name="nuConfirmPassword" #nuConfirmPassword="ngModel" required/>
+
+                    <div [hidden]="isPasswordsConfirmed" class="alert alert-danger">
+                        Confirm password
+                    </div>
+
+                    <div [hidden]="nuPassword.valid || nuPassword.untouched || 
+                        nuConfirmPassword.valid || nuConfirmPassword.untouched" class="alert alert-danger">
+                        Password is required
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Name</label>
+
+                    <input class="form-control" [(ngModel)]="newUser.Name" 
+                        placeholder="Name" name="nuName" #nuName="ngModel" required/>
+                    
+                    <div [hidden]="nuName.valid || nuName.untouched" class="alert alert-danger">
+                        Name is required
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Surname</label>
+
+                    <input class="form-control" [(ngModel)]="newUser.Surname" 
+                        placeholder="Surname" name="nuSurname" #nuSurname="ngModel" required/>
+                    
+                    <div [hidden]="nuSurname.valid || nuSurname.untouched" class="alert alert-danger">
+                        Surname is required
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Phone</label>
+
+                    <input class="form-control" [(ngModel)]="newUser.Phone" 
+                        placeholder="Phone" name="nuPhone" #nuPhone="ngModel" pattern="^[0-9]{10}$" >  
+                    
+                    <div [hidden]="nuPhone.valid || nuPhone.untouched" class="alert alert-danger">
+                        Phone is not valid
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Address</label>
+
+                    <input class="form-control" [(ngModel)]="newUser.Address" placeholder="Address"/>
+                </div>
+                
+                <div class="form-group">
+                    <label class="control-label">Birthday</label>
+
+                    <input type="date" class="form-control" [(ngModel)]="newUser.Birthday"/>
+                </div>
+
+                <div class="form-group">
+                    <button [disabled]="nuEmail.invalid || nuPassword.invalid || nuConfirmPassword.invalid 
+                        || nuName.invalid || nuSurname.invalid || nuPhone.invalid"
+                        class="btn btn-primary btn-outline-success col-md-6" (click)="signUp()">Sign Up</button>
+                        
+                    <button class="btn btn-default btn-outline-success col-md-6" (click)="isRegistration = false">Sign In</button>
+                </div>
+            </div>
+        </ng-template>
+            
+        <ng-template #authorizeBlock>
+            <div class="panel col-md-4 center-top">
+                <div class="form-group">
+                    <label class="control-label">Email</label>
+
+                    <input class="form-control" [(ngModel)]="user.Email" 
+                        placeholder="Email" name="email" #email="ngModel" required/>
+
+                    <div [hidden]="email.valid || email.untouched" class="alert alert-danger">
+                        Email is required
+                    </div>
+                </div>
+    
+                <div class="form-group">
+                    <label class="control-label">Password</label>
+
+                    <input class="form-control" [(ngModel)]="user.Password" 
+                        placeholder="Password" name="password" #password="ngModel" type="password" required/>
+
+                    <div [hidden]="password.valid || password.untouched" class="alert alert-danger">
+                        Password is required
+                    </div>
+                </div>
+    
+                <div class="form-group">
+                    <button [disabled]="email.invalid || password.invalid" 
+                        class="btn btn-primary btn-outline-success col-md-6" (click)="signIn()">Sign In</button>
+
+                    <button class="btn btn-default btn-outline-success col-md-6" (click)="isRegistration = true">Sign Up</button>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>
+  
