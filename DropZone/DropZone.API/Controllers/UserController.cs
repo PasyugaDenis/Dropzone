@@ -3,16 +3,13 @@ using DropZone.API.Models;
 using DropZone.Core.Managers.UserManager;
 using DropZone.Core.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 
 namespace DropZone.API.Controllers
 {
     [RoutePrefix("Users")]
-    public class UserController: BaseApiController
+    public class UserController : BaseApiController
     {
         private readonly IUserManager _userManager;
 
@@ -21,7 +18,7 @@ namespace DropZone.API.Controllers
             _userManager = userManager;
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("{id:long}")]
         public async Task<IHttpActionResult> GetUser(long id)
@@ -72,7 +69,7 @@ namespace DropZone.API.Controllers
             }
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("DropZone/{id:long}")]
         public async Task<IHttpActionResult> GetDropZoneUsers(long id)
@@ -89,7 +86,7 @@ namespace DropZone.API.Controllers
             }
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("Sportsmen")]
         public async Task<IHttpActionResult> GetSportsmen()
@@ -106,7 +103,7 @@ namespace DropZone.API.Controllers
             }
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         [Route("Edit")]
         public async Task<IHttpActionResult> EditUser(UserModel model)
@@ -123,7 +120,7 @@ namespace DropZone.API.Controllers
             }
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         [Route("ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword(UserModel model)
@@ -140,7 +137,7 @@ namespace DropZone.API.Controllers
             }
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         [Route("Role/Edit")]
         public async Task<IHttpActionResult> EditRole(EditRoleModel model)
@@ -157,7 +154,7 @@ namespace DropZone.API.Controllers
             }
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         [Route("Delete")]
         public async Task<IHttpActionResult> DeleteUser(long userId)

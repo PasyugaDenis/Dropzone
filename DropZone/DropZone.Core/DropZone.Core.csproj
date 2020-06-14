@@ -74,6 +74,8 @@
     <Compile Include="Managers\AuthorizationManager\IAuthorizationManager.cs" />
     <Compile Include="Managers\DropZoneManager\DropZoneManager.cs" />
     <Compile Include="Managers\DropZoneManager\IDropZoneManager.cs" />
+    <Compile Include="Managers\ParachuteManager\IParachuteManager.cs" />
+    <Compile Include="Managers\ParachuteManager\ParachuteManager.cs" />
     <Compile Include="Managers\UserManager\IUserManager.cs" />
     <Compile Include="Managers\UserManager\UserManager.cs" />
     <Compile Include="Models\AAD\AADModel.cs" />
@@ -95,7 +97,9 @@
     <Compile Include="Services\AircraftService\IAircraftService.cs" />
     <Compile Include="Services\AuthorizationService\AuthorizationService.cs" />
     <Compile Include="Services\AuthorizationService\Interfaces\IAuthorizationService.cs" />
-    <Compile Include="Services\AuthorizationService\PasswordHasher.cs" />
+    <Compile Include="Services\ParachuteService\IParachuteService.cs" />
+    <Compile Include="Services\ParachuteService\ParachuteService.cs" />
+    <Compile Include="Utillities\Hasher.cs" />
     <Compile Include="Services\DropZoneService\DropZoneService.cs" />
     <Compile Include="Services\DropZoneService\IDropZoneService.cs" />
     <Compile Include="Services\UserService\Interfaces\IUserService.cs" />

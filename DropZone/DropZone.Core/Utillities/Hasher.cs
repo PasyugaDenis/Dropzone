@@ -1,21 +1,16 @@
 ﻿using System;
 using System.Security.Cryptography;
 
-namespace DropZone.Core.Services.AuthorizationService
+namespace DropZone.Core.Utillities
 {
-    public static class PasswordHasher
+    public static class Hasher
     {
-        public static string HashPassword(string password)
+        public static string Hash(string value)
         {
             byte[] salt;
             byte[] buffer2;
 
-            if (password == null)
-            {
-                throw new ArgumentNullException("password");
-            }
-
-            using (var bytes = new Rfc2898DeriveBytes(password, 0x10, 0x3e8))
+            using (var bytes = new Rfc2898DeriveBytes(value, 0x10, 0x3e8))
             {
                 salt = bytes.Salt;
                 buffer2 = bytes.GetBytes(0x20);
@@ -29,20 +24,20 @@ namespace DropZone.Core.Services.AuthorizationService
             return Convert.ToBase64String(dst);
         }
 
-        public static bool VerifyPassword(string hashedPassword, string password)
+        public static bool Verify(string hashedValue, string value)
         {
             byte[] buffer4;
 
-            if (hashedPassword == null)
+            if (hashedValue == null)
             {
-                throw new ArgumentNullException("hashedPassword");
+                throw new ArgumentNullException("hashedValue");
             }
-            if (password == null)
+            if (value == null)
             {
-                throw new ArgumentNullException("password");
+                throw new ArgumentNullException("value");
             }
 
-            byte[] src = Convert.FromBase64String(hashedPassword);
+            byte[] src = Convert.FromBase64String(hashedValue);
 
             if ((src.Length != 0x31) || (src[0] != 0))
             {
@@ -57,7 +52,7 @@ namespace DropZone.Core.Services.AuthorizationService
 
             Buffer.BlockCopy(src, 0x11, buffer3, 0, 0x20);
 
-            using (var bytes = new Rfc2898DeriveBytes(password, dst, 0x3e8))
+            using (var bytes = new Rfc2898DeriveBytes(value, dst, 0x3e8))
             {
                 buffer4 = bytes.GetBytes(0x20);
             }
@@ -78,6 +73,5 @@ namespace DropZone.Core.Services.AuthorizationService
 
             return true;
         }
-
     }
 }

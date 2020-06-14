@@ -203,7 +203,7 @@ namespace DropZone.Core.Services.UserService
         {
             var user = await _repository.GetAsync<User>(model.Id);
 
-            var hashedPassword = PasswordHasher.HashPassword(model.Password);
+            var hashedPassword = PasswordHasher.Hash(model.Password);
 
             user.Password = hashedPassword;
 

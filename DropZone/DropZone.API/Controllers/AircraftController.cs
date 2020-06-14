@@ -20,7 +20,7 @@ namespace DropZone.API.Controllers
             _aircraftManager = aircraftManager;
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("")]
         public async Task<IHttpActionResult> GetAircrafts()
@@ -37,7 +37,7 @@ namespace DropZone.API.Controllers
             }
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("DropZone/{id:long}")]
         public async Task<IHttpActionResult> GetDropZoneAircrafts(long id)
@@ -54,7 +54,7 @@ namespace DropZone.API.Controllers
             }
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("{id:long}")]
         public async Task<IHttpActionResult> GetAircraft(long id)
@@ -71,7 +71,7 @@ namespace DropZone.API.Controllers
             }
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         [Route("Create")]
         public async Task<IHttpActionResult> CreateAircraft(AircraftModel model)
@@ -88,7 +88,7 @@ namespace DropZone.API.Controllers
             }
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         [Route("Edit")]
         public async Task<IHttpActionResult> EditAircraft(AircraftModel model)
@@ -105,7 +105,7 @@ namespace DropZone.API.Controllers
             }
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         [Route("Delete")]
         public async Task<IHttpActionResult> DeleteAircraft(long id)

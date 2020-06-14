@@ -2,7 +2,7 @@
 using DropZone.Core.Models.User;
 using DropZone.Core.Services.AuthorizationService;
 using DropZone.Core.Services.UserService;
-using DropZone.Database.Repository;
+using DropZone.Core.Utillities;
 using System.Threading.Tasks;
 
 namespace DropZone.Core.Managers.AuthorizationManager
@@ -28,7 +28,7 @@ namespace DropZone.Core.Managers.AuthorizationManager
 
             if (user != null)
             {
-                var isVerifiedPassword = PasswordHasher.VerifyPassword(user.Password, password);
+                var isVerifiedPassword = Hasher.Verify(user.Password, password);
 
                 if (isVerifiedPassword)
                 {
@@ -60,7 +60,7 @@ namespace DropZone.Core.Managers.AuthorizationManager
 
             if (!isUserExist)
             {
-                var hashedPassword = PasswordHasher.HashPassword(model.Password);
+                var hashedPassword = Hasher.Hash(model.Password);
 
                 model.Password = hashedPassword;
 

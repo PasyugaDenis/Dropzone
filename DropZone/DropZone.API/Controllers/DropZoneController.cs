@@ -19,7 +19,7 @@ namespace DropZone.API.Controllers
             _dropZoneManager = dropZoneManager;
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("{id:long}")]
         public async Task<IHttpActionResult> GetDropZone(long id)
@@ -36,7 +36,7 @@ namespace DropZone.API.Controllers
             }
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("")]
         public async Task<IHttpActionResult> GetDropZones()
@@ -53,7 +53,7 @@ namespace DropZone.API.Controllers
             }
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         [Route("Create")]
         public async Task<IHttpActionResult> CreateDropZone(CreateDropZoneModel model)
@@ -70,7 +70,7 @@ namespace DropZone.API.Controllers
             }
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         [Route("Edit")]
         public async Task<IHttpActionResult> EditDropZone(DropZoneModel model)
